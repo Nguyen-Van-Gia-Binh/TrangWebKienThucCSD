@@ -20,7 +20,7 @@ export const stackVisualizer: VisualizerModule<StackOp[], StackState> = {
   title: "Stack — push / pop / peek",
   description:
     "Ngăn xếp LIFO cài đặt bằng mảng: theo dõi con trỏ top, cơ chế grow() khi mảng đầy và lỗi underflow khi pop lúc rỗng.",
-  chapter: "stacks",
+  chapter: "stacks-queues",
   badge: "Stack",
   pseudocode,
   defaultInput,

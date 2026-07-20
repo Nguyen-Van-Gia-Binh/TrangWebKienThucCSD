@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Construction, MonitorPlay } from "lucide-react";
+import { ArrowLeft, MonitorPlay } from "lucide-react";
 import { CHAPTERS, getChapter } from "@/lib/chapters";
 import { visualizers } from "@/features/visualizers/registry";
+import quizzesData from "@/data/quizzes.json";
+import { QuizSection } from "@/components/quiz/QuizSection";
+import fs from "fs";
+import path from "path";
+import { MarkdownRenderer } from "@/components/ui/MarkdownRenderer";
 
 export function generateStaticParams() {
   return CHAPTERS.map((c) => ({ chapter: c.slug, slug: [] as string[] }));
@@ -29,8 +34,17 @@ export default async function ChapterPage({
 
   const related = visualizers.filter((v) => v.chapter === chapter.slug);
 
+  // Đọc nội dung Markdown từ file
+  let markdownContent = "";
+  try {
+    const filePath = path.join(process.cwd(), "src", "content", "theories", `${chapter.slug}.md`);
+    markdownContent = fs.readFileSync(filePath, "utf-8");
+  } catch (e) {
+    markdownContent = "Đang biên soạn nội dung...";
+  }
+
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-10">
+    <div className="w-full">
       <Link
         href="/topics"
         className="mb-4 inline-flex items-center gap-1.5 text-sm text-neutral-500 transition-colors hover:text-indigo-600 dark:text-neutral-400 dark:hover:text-indigo-400"
@@ -38,23 +52,14 @@ export default async function ChapterPage({
         <ArrowLeft size={15} /> Tất cả chủ đề
       </Link>
 
-      <h1 className="text-3xl font-bold">{chapter.title}</h1>
-      <p className="mt-1 text-sm text-neutral-400 dark:text-neutral-500">
-        Slide gốc: {chapter.slide}.pdf
-      </p>
-
-      <div className="mt-8 flex items-start gap-3 rounded-xl border border-dashed border-amber-300 bg-amber-50 p-5 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
-        <Construction size={18} className="mt-0.5 shrink-0" />
-        <p>
-          Nội dung lý thuyết của chương này đang được biên soạn từ slide môn học
-          và sẽ sớm xuất hiện tại đây.
-        </p>
+      <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm sm:p-10 dark:border-neutral-800 dark:bg-neutral-900/50">
+        <MarkdownRenderer content={markdownContent} />
       </div>
 
       {related.length > 0 && (
-        <div className="mt-8">
+        <div className="mt-12">
           <h2 className="mb-3 text-lg font-semibold">
-            Visualizer của chương này
+            Trực quan hóa (Visualizer)
           </h2>
           <div className="grid gap-3 sm:grid-cols-2">
             {related.map((v) => (
@@ -75,6 +80,9 @@ export default async function ChapterPage({
           </div>
         </div>
       )}
+
+      {/* Render Quizzes if any */}
+      <QuizSection questions={(quizzesData as Record<string, any>)[chapter.slug] || []} />
     </div>
   );
 }

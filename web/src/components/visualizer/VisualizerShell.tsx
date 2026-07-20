@@ -1,14 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { getVisualizer } from "@/features/visualizers/registry";
 import { getChapter } from "@/lib/chapters";
 import { useStepEngine } from "./useStepEngine";
 import { StepControls } from "./StepControls";
 import { PseudocodePanel } from "./PseudocodePanel";
 import { ActionLog } from "./ActionLog";
+import { Legend } from "./Legend";
 
 export function VisualizerShell({ slug }: { slug: string }) {
   const mod = getVisualizer(slug);
@@ -19,8 +20,41 @@ export function VisualizerShell({ slug }: { slug: string }) {
 function ShellInner({ slug }: { slug: string }) {
   const mod = getVisualizer(slug)!;
   const [input, setInput] = useState<unknown>(mod.defaultInput);
-  const steps = useMemo(() => mod.generateSteps(input), [mod, input]);
-  const engine = useStepEngine(steps);
+  const [steps, setSteps] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+    
+    // Fetch steps from NestJS backend
+    fetch(`http://localhost:3001/visualize/${slug}/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ops: input }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (active) {
+          setSteps(Array.isArray(data) ? data : []);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.error("Lỗi khi fetch steps từ backend:", err);
+        if (active) {
+          setSteps([{ action: "Error connecting to backend", state: {} }]);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [slug, input]);
+
+  const EMPTY_STEPS = useMemo(() => [{ state: {}, action: "Loading..." }], []);
+  const engine = useStepEngine(steps.length > 0 ? steps : EMPTY_STEPS);
   const chapter = getChapter(mod.chapter);
 
   const { Canvas, InputPanel } = mod;
@@ -60,8 +94,23 @@ function ShellInner({ slug }: { slug: string }) {
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="flex flex-col gap-4 lg:col-span-2">
           <InputPanel defaultInput={mod.defaultInput} onRun={setInput} />
-          <div className="rounded-xl border border-neutral-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
-            <Canvas step={engine.current} />
+          <div className="relative rounded-xl border border-neutral-200/80 bg-white/50 p-5 shadow-lg shadow-neutral-200/50 backdrop-blur-sm dark:border-neutral-800/80 dark:bg-neutral-900/50 dark:shadow-black/50 bg-dot-pattern">
+            <div className="mb-4">
+              <Legend />
+            </div>
+            {isLoading && (
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl bg-white/60 backdrop-blur-sm dark:bg-neutral-900/60">
+                <Loader2 className="h-8 w-8 animate-spin text-indigo-500" />
+                <span className="mt-2 text-sm font-medium text-neutral-600 dark:text-neutral-300">Đang tính toán trên Backend...</span>
+              </div>
+            )}
+            {engine.current && Object.keys(engine.current.state || {}).length > 0 ? (
+              <Canvas step={engine.current} />
+            ) : (
+              <div className="min-h-[400px] flex items-center justify-center text-neutral-500">
+                {isLoading ? "" : "Không có dữ liệu mô phỏng"}
+              </div>
+            )}
           </div>
           <StepControls
             index={engine.index}

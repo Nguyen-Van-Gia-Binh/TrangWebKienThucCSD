@@ -1,0 +1,34 @@
+{
+  "stacks": [
+    {
+      "id": "q1",
+      "question": "Cấu trúc dữ liệu Ngăn xếp (Stack) tuân theo nguyên tắc nào?",
+      "options": ["LIFO (Last In First Out)", "FIFO (First In First Out)", "LILO (Last In Last Out)", "Random Access"],
+      "correctIndex": 0,
+      "explanation": "Stack hoạt động theo nguyên tắc LIFO: phần tử được thêm vào cuối cùng (push) sẽ là phần tử được lấy ra đầu tiên (pop)."
+    },
+    {
+      "id": "q2",
+      "question": "Thao tác lấy phần tử ở đỉnh stack nhưng KHÔNG xóa nó gọi là gì?",
+      "options": ["pop", "push", "peek (hoặc top)", "dequeue"],
+      "correctIndex": 2,
+      "explanation": "Peek (hoặc top) dùng để xem giá trị phần tử trên cùng mà không thay đổi trạng thái của stack."
+    }
+  ],
+  "queues": [
+    {
+      "id": "q3",
+      "question": "Hàng đợi (Queue) tuân theo nguyên lý nào?",
+      "options": ["LIFO (Last In First Out)", "FIFO (First In First Out)", "FILO (First In Last Out)", "Lệnh ngẫu nhiên"],
+      "correctIndex": 1,
+      "explanation": "Queue hoạt động theo nguyên tắc FIFO: ai đến trước được phục vụ trước (Enqueue vào cuối, Dequeue từ đầu)."
+    },
+    {
+      "id": "q4",
+      "question": "Trong Circular Queue (Hàng đợi vòng), công thức để tính vị trí phần tử tiếp theo sau 'rear' (với sức chứa là 'capacity') là gì?",
+      "options": ["rear + 1", "(rear + 1) % capacity", "rear % capacity + 1", "capacity % rear"],
+      "correctIndex": 1,
+      "explanation": "Khi rear tiến đến cuối mảng, (rear + 1) % capacity giúp con trỏ quay lại vị trí đầu mảng (index 0) nếu có chỗ trống."
+    }
+  ]
+}

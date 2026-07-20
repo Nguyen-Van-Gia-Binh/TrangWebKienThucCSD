@@ -1,5 +1,7 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+*Phát triển bởi đội ngũ 4 thành viên: **Lê Thanh Tùng, Nguyễn Văn Gia Bình, Nguyễn Hải Dương, Nguyễn Hữu Thành**.*
+
 ## Getting Started
 
 First, run the development server:
