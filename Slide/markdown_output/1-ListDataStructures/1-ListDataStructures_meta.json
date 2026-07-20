@@ -1,0 +1,1768 @@
+{
+  "table_of_contents": [
+    {
+      "title": "1. List Data Structure",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          125.5078125,
+          216.53631591796875
+        ],
+        [
+          569.348876953125,
+          216.53631591796875
+        ],
+        [
+          569.348876953125,
+          260.53631591796875
+        ],
+        [
+          125.5078125,
+          260.53631591796875
+        ]
+      ]
+    },
+    {
+      "title": "Objectives",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          270.3515625,
+          50.064971923828125
+        ],
+        [
+          447.3792724609375,
+          50.064971923828125
+        ],
+        [
+          447.3792724609375,
+          90.06497192382812
+        ],
+        [
+          268.9453125,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "List Data Structures",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          172.96875,
+          34.06494140625
+        ],
+        [
+          498.0076599121094,
+          34.06494140625
+        ],
+        [
+          498.0076599121094,
+          74.06494140625
+        ],
+        [
+          171.5625,
+          74.06494140625
+        ]
+      ]
+    },
+    {
+      "title": "Drawbacks of Arrays",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          188.7890625,
+          50.064971923828125
+        ],
+        [
+          531.0518188476562,
+          50.064971923828125
+        ],
+        [
+          531.0518188476562,
+          90.06497192382812
+        ],
+        [
+          187.3828125,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Self-Referential Structures",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          140.9234161376953,
+          33.814971923828125
+        ],
+        [
+          579.0618896484375,
+          33.486328125
+        ],
+        [
+          579.0618896484375,
+          73.81497192382812
+        ],
+        [
+          140.9234161376953,
+          73.81497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Linked Lists",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          264.9814758300781,
+          50.064971923828125
+        ],
+        [
+          455.5098876953125,
+          49.833984375
+        ],
+        [
+          455.5098876953125,
+          90.06497192382812
+        ],
+        [
+          264.375,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked Lists",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          174.375,
+          57.814971923828125
+        ],
+        [
+          472.7411804199219,
+          57.814971923828125
+        ],
+        [
+          472.7411804199219,
+          97.81497192382812
+        ],
+        [
+          174.375,
+          97.81497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked List Implementation",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          79.453125,
+          50.064971923828125
+        ],
+        [
+          639.8171997070312,
+          49.833984375
+        ],
+        [
+          639.8171997070312,
+          90.06497192382812
+        ],
+        [
+          79.453125,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked Lists - 1",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          156.4453125,
+          52.998046875
+        ],
+        [
+          526.807373046875,
+          51.943359375
+        ],
+        [
+          526.807373046875,
+          93.06494140625
+        ],
+        [
+          156.4453125,
+          93.06494140625
+        ]
+      ]
+    },
+    {
+      "title": "Inserting a new node at the beginning of a list",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          73.125,
+          101.93939208984375
+        ],
+        [
+          668.7907104492188,
+          101.77734375
+        ],
+        [
+          668.7907104492188,
+          133.93939208984375
+        ],
+        [
+          73.125,
+          133.93939208984375
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked Lists - 2",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          156.796875,
+          53.06494140625
+        ],
+        [
+          526.807373046875,
+          53.06494140625
+        ],
+        [
+          526.807373046875,
+          93.06494140625
+        ],
+        [
+          156.796875,
+          93.06494140625
+        ]
+      ]
+    },
+    {
+      "title": "Inserting a new node at the end of a list",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          112.8515625,
+          101.93939208984375
+        ],
+        [
+          628.5611572265625,
+          101.93939208984375
+        ],
+        [
+          628.5611572265625,
+          133.93939208984375
+        ],
+        [
+          112.8515625,
+          133.93939208984375
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked Lists - 3",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          201.09375,
+          34.27734375
+        ],
+        [
+          534.4277954101562,
+          34.27734375
+        ],
+        [
+          534.4277954101562,
+          70.3209228515625
+        ],
+        [
+          199.6875,
+          70.3209228515625
+        ]
+      ]
+    },
+    {
+      "title": "Deleting a node from the beginning of a list",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          103.359375,
+          76.21893310546875
+        ],
+        [
+          614.3900756835938,
+          76.201171875
+        ],
+        [
+          614.3900756835938,
+          105.21893310546875
+        ],
+        [
+          103.359375,
+          105.21893310546875
+        ]
+      ]
+    },
+    {
+      "title": "Singly Linked List - 4",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          208.4765625,
+          34.013671875
+        ],
+        [
+          527.2471313476562,
+          34.013671875
+        ],
+        [
+          527.2471313476562,
+          70.3209228515625
+        ],
+        [
+          208.4765625,
+          70.3209228515625
+        ]
+      ]
+    },
+    {
+      "title": "Deleting element from the end of a list",
+      "heading_level": null,
+      "page_id": 11,
+      "polygon": [
+        [
+          132.1875,
+          76.21893310546875
+        ],
+        [
+          585.814453125,
+          76.21893310546875
+        ],
+        [
+          585.814453125,
+          105.21893310546875
+        ],
+        [
+          132.1875,
+          105.21893310546875
+        ]
+      ]
+    },
+    {
+      "title": "Circular Lists - 1",
+      "heading_level": null,
+      "page_id": 12,
+      "polygon": [
+        [
+          230.2734375,
+          50.064971923828125
+        ],
+        [
+          509.677734375,
+          49.833984375
+        ],
+        [
+          509.677734375,
+          90.06497192382812
+        ],
+        [
+          228.8671875,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Circular Lists - 2",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          241.5234375,
+          34.3209228515625
+        ],
+        [
+          494.486083984375,
+          34.3209228515625
+        ],
+        [
+          494.486083984375,
+          70.3209228515625
+        ],
+        [
+          241.5234375,
+          70.3209228515625
+        ]
+      ]
+    },
+    {
+      "title": "Inserting nodes",
+      "heading_level": null,
+      "page_id": 13,
+      "polygon": [
+        [
+          273.1640625,
+          76.21893310546875
+        ],
+        [
+          453.19683837890625,
+          76.21893310546875
+        ],
+        [
+          453.19683837890625,
+          105.21893310546875
+        ],
+        [
+          271.7578125,
+          105.21893310546875
+        ]
+      ]
+    },
+    {
+      "title": "Circular List application",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          185.7194366455078,
+          42.978515625
+        ],
+        [
+          534.28662109375,
+          42.978515625
+        ],
+        [
+          534.28662109375,
+          79.65841674804688
+        ],
+        [
+          184.5703125,
+          79.65841674804688
+        ]
+      ]
+    },
+    {
+      "title": "151. Round-Robin Scheduling",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          14.932229995727539,
+          96.767578125
+        ],
+        [
+          262.1461486816406,
+          96.767578125
+        ],
+        [
+          262.1461486816406,
+          115.34197998046875
+        ],
+        [
+          14.932229995727539,
+          115.34197998046875
+        ]
+      ]
+    },
+    {
+      "title": "2. Using circular linked list to implement Round-Robin Scheduling",
+      "heading_level": null,
+      "page_id": 14,
+      "polygon": [
+        [
+          23.5546875,
+          333.28125
+        ],
+        [
+          592.3828125,
+          333.28125
+        ],
+        [
+          592.180908203125,
+          352.85581970214844
+        ],
+        [
+          22.1484375,
+          352.85581970214844
+        ]
+      ]
+    },
+    {
+      "title": "Doubly Linked Lists - 1",
+      "heading_level": null,
+      "page_id": 15,
+      "polygon": [
+        [
+          157.69876098632812,
+          48.18994140625
+        ],
+        [
+          546.05615234375,
+          48.18994140625
+        ],
+        [
+          546.05615234375,
+          88.18994140625
+        ],
+        [
+          157.69876098632812,
+          88.18994140625
+        ]
+      ]
+    },
+    {
+      "title": "Doubly Linked Lists - 2",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          193.359375,
+          34.3209228515625
+        ],
+        [
+          543.6517944335938,
+          34.3209228515625
+        ],
+        [
+          543.6517944335938,
+          70.3209228515625
+        ],
+        [
+          191.953125,
+          70.3209228515625
+        ]
+      ]
+    },
+    {
+      "title": "Adding a new node at the end",
+      "heading_level": null,
+      "page_id": 16,
+      "polygon": [
+        [
+          180.703125,
+          76.21893310546875
+        ],
+        [
+          536.0289916992188,
+          76.21893310546875
+        ],
+        [
+          536.0289916992188,
+          105.21893310546875
+        ],
+        [
+          180.703125,
+          105.21893310546875
+        ]
+      ]
+    },
+    {
+      "title": "Doubly Linked Lists -3",
+      "heading_level": null,
+      "page_id": 17,
+      "polygon": [
+        [
+          196.171875,
+          34.3209228515625
+        ],
+        [
+          528.5610961914062,
+          34.3209228515625
+        ],
+        [
+          528.5610961914062,
+          70.3209228515625
+        ],
+        [
+          196.171875,
+          70.3209228515625
+        ]
+      ]
+    },
+    {
+      "title": "Deleting a node from the end",
+      "heading_level": null,
+      "page_id": 17,
+      "polygon": [
+        [
+          186.6796875,
+          76.21893310546875
+        ],
+        [
+          531.6549072265625,
+          76.21893310546875
+        ],
+        [
+          531.6549072265625,
+          105.21893310546875
+        ],
+        [
+          186.6796875,
+          105.21893310546875
+        ]
+      ]
+    },
+    {
+      "title": "Lists in java.util - LinkedList class",
+      "heading_level": null,
+      "page_id": 18,
+      "polygon": [
+        [
+          79.8046875,
+          41.064971923828125
+        ],
+        [
+          620.6441040039062,
+          40.869140625
+        ],
+        [
+          620.6441040039062,
+          81.06497192382812
+        ],
+        [
+          79.8046875,
+          81.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Lists in java.util\nLinkedList class example",
+      "heading_level": null,
+      "page_id": 19,
+      "polygon": [
+        [
+          132.890625,
+          17.06494140625
+        ],
+        [
+          538.0472412109375,
+          17.06494140625
+        ],
+        [
+          538.0472412109375,
+          105.06497192382812
+        ],
+        [
+          132.890625,
+          105.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Lists in java.util - ArrayList class",
+      "heading_level": null,
+      "page_id": 20,
+      "polygon": [
+        [
+          92.4609375,
+          41.064971923828125
+        ],
+        [
+          614.8261108398438,
+          40.869140625
+        ],
+        [
+          614.8261108398438,
+          81.06497192382812
+        ],
+        [
+          92.4609375,
+          81.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Summary",
+      "heading_level": null,
+      "page_id": 21,
+      "polygon": [
+        [
+          251.3671875,
+          35.06494140625
+        ],
+        [
+          412.1681823730469,
+          35.06494140625
+        ],
+        [
+          412.1681823730469,
+          75.06494140625
+        ],
+        [
+          251.3671875,
+          75.06494140625
+        ]
+      ]
+    },
+    {
+      "title": "Reading at home",
+      "heading_level": null,
+      "page_id": 22,
+      "polygon": [
+        [
+          219.28248596191406,
+          50.064971923828125
+        ],
+        [
+          500.72918701171875,
+          50.064971923828125
+        ],
+        [
+          500.72918701171875,
+          90.06497192382812
+        ],
+        [
+          217.96875,
+          90.06497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Text book: Data Structures and Algorithms in Java",
+      "heading_level": null,
+      "page_id": 22,
+      "polygon": [
+        [
+          130.78125,
+          103.095703125
+        ],
+        [
+          564.51025390625,
+          102.041015625
+        ],
+        [
+          564.51025390625,
+          121.25570678710938
+        ],
+        [
+          130.78125,
+          121.25570678710938
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          5
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Line",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          35
+        ],
+        [
+          "Line",
+          9
+        ],
+        [
+          "ListItem",
+          7
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          33
+        ],
+        [
+          "Line",
+          16
+        ],
+        [
+          "ListItem",
+          4
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Code",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          27
+        ],
+        [
+          "Line",
+          12
+        ],
+        [
+          "ListItem",
+          5
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          48
+        ],
+        [
+          "Line",
+          20
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          43
+        ],
+        [
+          "Line",
+          14
+        ],
+        [
+          "ListItem",
+          5
+        ],
+        [
+          "Text",
+          3
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          25
+        ],
+        [
+          "Line",
+          9
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          81
+        ],
+        [
+          "Line",
+          40
+        ],
+        [
+          "Code",
+          3
+        ],
+        [
+          "Picture",
+          2
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "PageFooter",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 8,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 9,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 10,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 11,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 12,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          17
+        ],
+        [
+          "Line",
+          5
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 13,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 14,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          55
+        ],
+        [
+          "Line",
+          19
+        ],
+        [
+          "SectionHeader",
+          3
+        ],
+        [
+          "Text",
+          2
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 15,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          72
+        ],
+        [
+          "Line",
+          32
+        ],
+        [
+          "Code",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 16,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Caption",
+          1
+        ],
+        [
+          "FigureGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 17,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "Figure",
+          1
+        ],
+        [
+          "Text",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 18,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          89
+        ],
+        [
+          "TableCell",
+          30
+        ],
+        [
+          "Line",
+          16
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Table",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 19,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          65
+        ],
+        [
+          "Line",
+          32
+        ],
+        [
+          "Code",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 20,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          84
+        ],
+        [
+          "TableCell",
+          20
+        ],
+        [
+          "Line",
+          18
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Table",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 21,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          43
+        ],
+        [
+          "Line",
+          15
+        ],
+        [
+          "ListItem",
+          6
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 22,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          17
+        ],
+        [
+          "Line",
+          8
+        ],
+        [
+          "ListItem",
+          5
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "PageFooter",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data\\1-ListDataStructures"
+}

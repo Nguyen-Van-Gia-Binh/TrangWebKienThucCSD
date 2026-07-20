@@ -1,0 +1,770 @@
+{
+  "table_of_contents": [
+    {
+      "title": "DATA STRUCTURES AND ALGORITHMS using Java",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          36.2109375,
+          198.9229736328125
+        ],
+        [
+          401.8917236328125,
+          198.80859375
+        ],
+        [
+          401.8917236328125,
+          216.9229736328125
+        ],
+        [
+          34.8046875,
+          216.9229736328125
+        ]
+      ]
+    },
+    {
+      "title": "Course Introduction",
+      "heading_level": null,
+      "page_id": 0,
+      "polygon": [
+        [
+          36.9140625,
+          225.2989501953125
+        ],
+        [
+          419.33929443359375,
+          224.912109375
+        ],
+        [
+          419.33929443359375,
+          265.2989501953125
+        ],
+        [
+          35.5078125,
+          265.2989501953125
+        ]
+      ]
+    },
+    {
+      "title": "Objectives",
+      "heading_level": null,
+      "page_id": 1,
+      "polygon": [
+        [
+          242.9296875,
+          71.74893188476562
+        ],
+        [
+          446.1453857421875,
+          71.71875
+        ],
+        [
+          446.1453857421875,
+          111.74893188476562
+        ],
+        [
+          242.9296875,
+          111.796875
+        ]
+      ]
+    },
+    {
+      "title": "Instructor introduction",
+      "heading_level": null,
+      "page_id": 2,
+      "polygon": [
+        [
+          132.47837829589844,
+          76.49896240234375
+        ],
+        [
+          563.4845581054688,
+          75.9375
+        ],
+        [
+          563.4845581054688,
+          116.49896240234375
+        ],
+        [
+          131.484375,
+          116.49896240234375
+        ]
+      ]
+    },
+    {
+      "title": "Course description",
+      "heading_level": null,
+      "page_id": 3,
+      "polygon": [
+        [
+          177.75936889648438,
+          64.49893188476562
+        ],
+        [
+          542.19189453125,
+          63.80859375
+        ],
+        [
+          542.19189453125,
+          104.49893188476562
+        ],
+        [
+          176.8359375,
+          104.49893188476562
+        ]
+      ]
+    },
+    {
+      "title": "Text book(s) & Reference Recourses",
+      "heading_level": null,
+      "page_id": 4,
+      "polygon": [
+        [
+          57.75,
+          41.66015625
+        ],
+        [
+          661.5,
+          41.66015625
+        ],
+        [
+          661.5,
+          75.41015625
+        ],
+        [
+          57.75,
+          75.41015625
+        ]
+      ]
+    },
+    {
+      "title": "Learning Tools",
+      "heading_level": null,
+      "page_id": 5,
+      "polygon": [
+        [
+          199.6875,
+          69.81497192382812
+        ],
+        [
+          441.15753173828125,
+          69.81497192382812
+        ],
+        [
+          441.15753173828125,
+          109.81497192382812
+        ],
+        [
+          198.28125,
+          109.81497192382812
+        ]
+      ]
+    },
+    {
+      "title": "Requirements of the course",
+      "heading_level": null,
+      "page_id": 6,
+      "polygon": [
+        [
+          89.51362609863281,
+          70.49896240234375
+        ],
+        [
+          618.452392578125,
+          70.49896240234375
+        ],
+        [
+          618.452392578125,
+          110.49896240234375
+        ],
+        [
+          89.51362609863281,
+          110.49896240234375
+        ]
+      ]
+    },
+    {
+      "title": "Grading policy",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          219.375,
+          50.74896240234375
+        ],
+        [
+          500.00836181640625,
+          50.625
+        ],
+        [
+          500.00836181640625,
+          90.74896240234375
+        ],
+        [
+          217.96875,
+          90.74896240234375
+        ]
+      ]
+    },
+    {
+      "title": "\u2022 On-going assessment:",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          61.171875,
+          116.06399536132812
+        ],
+        [
+          306.13336181640625,
+          115.751953125
+        ],
+        [
+          306.13336181640625,
+          140.06399536132812
+        ],
+        [
+          59.765625,
+          140.06399536132812
+        ]
+      ]
+    },
+    {
+      "title": "\u2022 Practical and Final Exams:",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          61.19996643066406,
+          208.22396850585938
+        ],
+        [
+          345.0811462402344,
+          208.22396850585938
+        ],
+        [
+          345.0811462402344,
+          232.22396850585938
+        ],
+        [
+          61.171875,
+          232.22396850585938
+        ]
+      ]
+    },
+    {
+      "title": "\u2022 Completion Criteria:",
+      "heading_level": null,
+      "page_id": 7,
+      "polygon": [
+        [
+          60.1171875,
+          334.32586669921875
+        ],
+        [
+          289.9847412109375,
+          334.32586669921875
+        ],
+        [
+          289.9847412109375,
+          358.9439697265625
+        ],
+        [
+          60.1171875,
+          358.9439697265625
+        ]
+      ]
+    },
+    {
+      "title": "FPT-University Academic policy",
+      "heading_level": null,
+      "page_id": 8,
+      "polygon": [
+        [
+          55.1953125,
+          50.361328125
+        ],
+        [
+          664.4789428710938,
+          50.361328125
+        ],
+        [
+          664.4789428710938,
+          90.74896240234375
+        ],
+        [
+          55.1953125,
+          90.74896240234375
+        ]
+      ]
+    },
+    {
+      "title": "Assignments submission guide",
+      "heading_level": null,
+      "page_id": 9,
+      "polygon": [
+        [
+          141.6796875,
+          70.44912719726562
+        ],
+        [
+          564.7831420898438,
+          69.873046875
+        ],
+        [
+          564.7831420898438,
+          98.44912719726562
+        ],
+        [
+          140.2734375,
+          98.44912719726562
+        ]
+      ]
+    },
+    {
+      "title": "OOP notion conventions",
+      "heading_level": null,
+      "page_id": 10,
+      "polygon": [
+        [
+          192.3046875,
+          46.449127197265625
+        ],
+        [
+          521.1061401367188,
+          45.615234375
+        ],
+        [
+          521.1061401367188,
+          74.44912719726562
+        ],
+        [
+          190.8984375,
+          74.44912719726562
+        ]
+      ]
+    }
+  ],
+  "page_stats": [
+    {
+      "page_id": 0,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          5
+        ],
+        [
+          "SectionHeader",
+          2
+        ],
+        [
+          "Line",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 1,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          29
+        ],
+        [
+          "Line",
+          8
+        ],
+        [
+          "ListItem",
+          7
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 2,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          9
+        ],
+        [
+          "Line",
+          5
+        ],
+        [
+          "Text",
+          4
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 3,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          23
+        ],
+        [
+          "Line",
+          10
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 4,
+      "text_extraction_method": "surya",
+      "block_counts": [
+        [
+          "Line",
+          20
+        ],
+        [
+          "Span",
+          8
+        ],
+        [
+          "ListItem",
+          7
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 5,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          7
+        ],
+        [
+          "Line",
+          4
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 6,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          15
+        ],
+        [
+          "Line",
+          8
+        ],
+        [
+          "ListItem",
+          6
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 7,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          33
+        ],
+        [
+          "Line",
+          12
+        ],
+        [
+          "Text",
+          5
+        ],
+        [
+          "SectionHeader",
+          4
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 8,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          31
+        ],
+        [
+          "Line",
+          13
+        ],
+        [
+          "ListItem",
+          6
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 9,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          11
+        ],
+        [
+          "Line",
+          6
+        ],
+        [
+          "ListItem",
+          2
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    },
+    {
+      "page_id": 10,
+      "text_extraction_method": "pdftext",
+      "block_counts": [
+        [
+          "Span",
+          25
+        ],
+        [
+          "Line",
+          10
+        ],
+        [
+          "ListItem",
+          3
+        ],
+        [
+          "Picture",
+          1
+        ],
+        [
+          "SectionHeader",
+          1
+        ],
+        [
+          "Text",
+          1
+        ],
+        [
+          "ListGroup",
+          1
+        ]
+      ],
+      "block_metadata": {
+        "llm_request_count": 0,
+        "llm_error_count": 0,
+        "llm_tokens_used": 0,
+        "previous_text": "",
+        "previous_type": "",
+        "previous_order": 0
+      }
+    }
+  ],
+  "debug_data_path": "debug_data\\0-DSA-course-Introduction"
+}
