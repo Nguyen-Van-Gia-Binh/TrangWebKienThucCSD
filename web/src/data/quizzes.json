@@ -1,4 +1,379 @@
 {
+  "intro": [
+    {
+      "id": "intro-q1",
+      "question": "Cấu trúc dữ liệu (Data Structure) là gì?",
+      "options": [
+        "Cách lưu trữ và tổ chức dữ liệu trong máy tính sao cho sử dụng hiệu quả",
+        "Một tập hợp các hướng dẫn để giải quyết một bài toán cụ thể",
+        "Ngôn ngữ lập trình dùng để viết thuật toán",
+        "Phần cứng máy tính dùng để lưu trữ dữ liệu"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cấu trúc dữ liệu là cách lưu trữ, tổ chức dữ liệu trong máy tính để có thể sử dụng dữ liệu một cách hiệu quả. Còn Giải thuật (Algorithm) mới là tập hợp các hướng dẫn giải quyết bài toán."
+    },
+    {
+      "id": "intro-q2",
+      "question": "Ký hiệu Big-O (Big O Notation) dùng để đo lường điều gì trong thuật toán?",
+      "options": [
+        "Số lượng dòng code trong chương trình",
+        "Độ phức tạp thời gian hoặc không gian của thuật toán theo kích thước đầu vào",
+        "Tốc độ xử lý của CPU",
+        "Dung lượng bộ nhớ RAM của máy tính"
+      ],
+      "correctIndex": 1,
+      "explanation": "Big-O Notation đánh giá độ phức tạp thuật toán (thời gian và không gian) theo kích thước đầu vào N, giúp so sánh hiệu năng giữa các thuật toán một cách khoa học."
+    },
+    {
+      "id": "intro-q3",
+      "question": "Thuật toán nào dưới đây có độ phức tạp thời gian tốt nhất (nhanh nhất) theo Big-O?",
+      "options": ["O(N²)", "O(N log N)", "O(N)", "O(1)"],
+      "correctIndex": 3,
+      "explanation": "O(1) là độ phức tạp hằng số — thuật toán thực thi trong thời gian cố định dù N lớn đến đâu, đây là trường hợp lý tưởng nhất."
+    },
+    {
+      "id": "intro-q4",
+      "question": "Điều gì là quan trọng nhất khi lựa chọn Cấu trúc dữ liệu cho một bài toán?",
+      "options": [
+        "Cấu trúc dữ liệu nào viết code ngắn nhất",
+        "Cấu trúc dữ liệu nào phù hợp với loại thao tác cần thực hiện và kích thước dữ liệu",
+        "Cấu trúc dữ liệu nào được dạy đầu tiên trong môn học",
+        "Cấu trúc dữ liệu nào có tên nghe phức tạp nhất"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lựa chọn cấu trúc dữ liệu đúng đắn dựa trên loại thao tác (tìm kiếm, chèn, xóa) và kích thước dữ liệu là chìa khóa để xây dựng phần mềm hiệu quả."
+    }
+  ],
+  "recursion": [
+    {
+      "id": "rec-q1",
+      "question": "Một hàm đệ quy BẮT BUỘC phải có thành phần nào để tránh lỗi Stack Overflow?",
+      "options": [
+        "Vòng lặp while bên trong",
+        "Trường hợp cơ sở (Base Case) — điều kiện dừng",
+        "Biến toàn cục để đếm số lần gọi",
+        "Câu lệnh return ở cuối hàm"
+      ],
+      "correctIndex": 1,
+      "explanation": "Base Case là điều kiện dừng bắt buộc của mọi hàm đệ quy. Thiếu Base Case, hàm sẽ gọi mình mãi mãi cho đến khi Call Stack đầy và crash với lỗi Stack Overflow."
+    },
+    {
+      "id": "rec-q2",
+      "question": "Độ phức tạp thời gian của thuật toán tính Fibonacci thuần túy bằng đệ quy nhánh là bao nhiêu?",
+      "options": ["O(N)", "O(N log N)", "O(2ᴺ)", "O(N²)"],
+      "correctIndex": 2,
+      "explanation": "Đệ quy Fibonacci gọi chính nó 2 lần ở mỗi bước, tạo thành cây nhị phân có N tầng, dẫn đến O(2ᴺ). Để tối ưu, ta phải dùng Memoization (Quy hoạch động)."
+    },
+    {
+      "id": "rec-q3",
+      "question": "Đệ quy đuôi (Tail Recursion) có ưu điểm gì so với đệ quy thông thường?",
+      "options": [
+        "Chạy nhanh hơn vì bỏ qua Base Case",
+        "Có thể được trình biên dịch tối ưu thành vòng lặp, giúp tiết kiệm hoàn toàn Call Stack",
+        "Không cần viết Base Case",
+        "Có thể gọi đệ quy vô hạn lần mà không lỗi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Trong Đệ quy đuôi, lời gọi đệ quy là thao tác cuối cùng. Trình biên dịch như GCC (với cờ -O2/-O3) có thể biến đổi nó thành vòng lặp, giúp không tốn thêm Stack Frame."
+    },
+    {
+      "id": "rec-q4",
+      "question": "Thuật toán nào dưới đây KHÔNG phải là ứng dụng điển hình của đệ quy?",
+      "options": [
+        "DFS (Duyệt đồ thị theo chiều sâu)",
+        "Merge Sort (Sắp xếp trộn)",
+        "Quay lui (Backtracking)",
+        "BFS (Duyệt đồ thị theo chiều rộng)"
+      ],
+      "correctIndex": 3,
+      "explanation": "BFS dùng Queue (hàng đợi) để duyệt theo từng lớp, đây là thuật toán lặp (iterative), không phải đệ quy. DFS, Merge Sort và Backtracking đều có bản chất đệ quy tự nhiên."
+    }
+  ],
+  "lists": [
+    {
+      "id": "list-q1",
+      "question": "So với Mảng (Array), Danh sách liên kết đơn (Singly Linked List) có ưu điểm gì?",
+      "options": [
+        "Truy cập phần tử bất kỳ theo chỉ số nhanh hơn O(1)",
+        "Thêm/Xóa ở đầu danh sách chỉ mất O(1)",
+        "Tốn ít bộ nhớ hơn do không cần lưu con trỏ",
+        "Tìm kiếm phần tử nhanh hơn O(log N)"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ưu điểm lớn nhất của Linked List so với Array là thêm/xóa ở đầu chỉ mất O(1) (chỉ cần thay con trỏ head), trong khi Array phải dịch chuyển toàn bộ phần tử mất O(N)."
+    },
+    {
+      "id": "list-q2",
+      "question": "Doubly Linked List (Danh sách liên kết đôi) khác gì so với Singly Linked List?",
+      "options": [
+        "Mỗi Node có thêm con trỏ 'prev' trỏ về Node phía trước",
+        "Mỗi Node lưu được 2 giá trị dữ liệu thay vì 1",
+        "Node cuối cùng trỏ về Node đầu tiên",
+        "Không cần con trỏ 'next', chỉ dùng 'prev'"
+      ],
+      "correctIndex": 0,
+      "explanation": "Doubly Linked List có thêm con trỏ 'prev' ở mỗi Node, cho phép duyệt 2 chiều và xóa một Node bất kỳ trong O(1) nếu biết con trỏ đến nó. std::list trong C++ chính là Doubly Linked List."
+    },
+    {
+      "id": "list-q3",
+      "question": "Điều gì xảy ra với Con trỏ next của Node cuối cùng trong Circular Linked List (Danh sách liên kết vòng)?",
+      "options": [
+        "Trỏ tới nullptr (giống Singly Linked List)",
+        "Trỏ ngược về Node đầu tiên (head)",
+        "Trỏ tới Node ở giữa danh sách",
+        "Trỏ tới chính Node đó (tự vòng)"
+      ],
+      "correctIndex": 1,
+      "explanation": "Trong Circular Linked List, con trỏ next của Node cuối cùng trỏ ngược về head thay vì nullptr. Cấu trúc này được dùng trong lập lịch Round-Robin của Hệ điều hành."
+    },
+    {
+      "id": "list-q4",
+      "question": "Thuật toán Floyd's Cycle-Finding (Rùa và Thỏ) dùng để làm gì và cần bao nhiêu bộ nhớ phụ?",
+      "options": [
+        "Sắp xếp danh sách liên kết, cần O(N) bộ nhớ",
+        "Phát hiện vòng lặp trong Linked List với chỉ O(1) bộ nhớ phụ",
+        "Tìm phần tử lớn nhất trong O(log N)",
+        "Đảo ngược danh sách liên kết với O(N) bộ nhớ"
+      ],
+      "correctIndex": 1,
+      "explanation": "Floyd's Cycle-Finding dùng 2 con trỏ: slow (1 bước) và fast (2 bước). Nếu có vòng lặp, fast chắc chắn đuổi kịp slow. Thuật toán cực kỳ tiết kiệm với O(1) bộ nhớ phụ."
+    }
+  ],
+  "trees-1": [
+    {
+      "id": "tree1-q1",
+      "question": "Trong thuật ngữ Cây (Tree), 'Leaf' (Lá) là gì?",
+      "options": [
+        "Đỉnh cao nhất, trên cùng của cây",
+        "Đỉnh không có bất kỳ con (children) nào",
+        "Cạnh nối 2 đỉnh bất kỳ",
+        "Đỉnh có đúng 2 con"
+      ],
+      "correctIndex": 1,
+      "explanation": "Leaf (Lá) là các đỉnh cuối cùng không có con nào. Root (Gốc) mới là đỉnh trên cùng. Cây có thể có nhiều lá nhưng chỉ có đúng 1 gốc."
+    },
+    {
+      "id": "tree1-q2",
+      "question": "Phép duyệt In-order (Left → Root → Right) trên Cây Nhị Phân Tìm Kiếm (BST) cho kết quả như thế nào?",
+      "options": [
+        "Các giá trị theo thứ tự ngẫu nhiên",
+        "Các giá trị theo thứ tự giảm dần",
+        "Các giá trị theo thứ tự tăng dần",
+        "Chỉ in ra các Node lá"
+      ],
+      "correctIndex": 2,
+      "explanation": "Đây là tính chất đặc biệt quan trọng của BST: phép duyệt In-order (Trung tự) luôn cho ra các giá trị theo thứ tự tăng dần, vì BST đảm bảo Trái < Gốc < Phải."
+    },
+    {
+      "id": "tree1-q3",
+      "question": "Phép duyệt nào được dùng để XÓA (Delete) toàn bộ cây một cách an toàn?",
+      "options": [
+        "Pre-order (Root → Left → Right)",
+        "In-order (Left → Root → Right)",
+        "Post-order (Left → Right → Root)",
+        "BFS (Level-order)"
+      ],
+      "correctIndex": 2,
+      "explanation": "Post-order (Hậu tự) xử lý Root sau cùng, sau khi đã xử lý xong 2 cây con. Điều này đảm bảo khi xóa một Node, tất cả con cháu của nó đã được xóa trước — tránh Memory Leak."
+    },
+    {
+      "id": "tree1-q4",
+      "question": "BST thuần túy bị 'suy biến' (Degenerate) khi nào và hậu quả là gì?",
+      "options": [
+        "Khi cây có quá nhiều Node, tốc độ tìm kiếm tăng lên O(N log N)",
+        "Khi chèn dữ liệu đã sắp xếp sẵn, BST biến thành Linked List với tốc độ tìm kiếm O(N)",
+        "Khi cây có số Node chẵn, tìm kiếm không chính xác",
+        "Khi xóa Node gốc, toàn bộ cây bị mất"
+      ],
+      "correctIndex": 1,
+      "explanation": "Chèn dữ liệu đã sắp xếp (1,2,3,4,5) khiến BST chỉ có nhánh phải, suy biến thành Linked List. Tìm kiếm từ O(log N) sụp đổ xuống O(N). Đây là lý do cần dùng Cây tự cân bằng (AVL, Red-Black)."
+    }
+  ],
+  "trees-2": [
+    {
+      "id": "tree2-q1",
+      "question": "Cây AVL đảm bảo luật cân bằng nào tại mỗi Node?",
+      "options": [
+        "Số Node trái bằng số Node phải",
+        "Hiệu chiều cao cây con trái và phải không vượt quá 1",
+        "Tất cả Node lá phải cùng độ sâu",
+        "Số con trỏ trái luôn bằng số con trỏ phải"
+      ],
+      "correctIndex": 1,
+      "explanation": "Luật của AVL: |Height(LeftChild) - Height(RightChild)| ≤ 1. BalanceFactor = H(Left) - H(Right), nếu BF nằm ngoài [-1, 1] thì cây mất cân bằng và phải xoay."
+    },
+    {
+      "id": "tree2-q2",
+      "question": "Trường hợp mất cân bằng Trái-Phải (LR) trong AVL được khắc phục bằng cách nào?",
+      "options": [
+        "Xoay Phải (Right Rotate) một lần tại gốc",
+        "Xoay Trái (Left Rotate) một lần tại gốc",
+        "Xoay Trái tại nút con trái, sau đó Xoay Phải tại gốc",
+        "Xoay Phải tại nút con phải, sau đó Xoay Trái tại gốc"
+      ],
+      "correctIndex": 2,
+      "explanation": "Trường hợp LR: BF(root)=2 nhưng cây con trái lại lệch phải (BF(root->left)<0). Cần 2 phép xoay: Xoay Trái tại root->left để chuyển về dạng LL, rồi Xoay Phải tại root."
+    },
+    {
+      "id": "tree2-q3",
+      "question": "So với AVL Tree, Red-Black Tree có ưu điểm gì?",
+      "options": [
+        "Tìm kiếm nhanh hơn vì cân bằng nghiêm ngặt hơn",
+        "Chèn/Xóa nhanh hơn vì cân bằng lỏng lẻo hơn, cần ít phép xoay hơn",
+        "Tiêu tốn ít bộ nhớ hơn do không lưu thông tin chiều cao",
+        "Có thể xử lý cạnh âm trong đồ thị"
+      ],
+      "correctIndex": 1,
+      "explanation": "Red-Black Tree cân bằng 'lỏng lẻo' hơn (đường dài nhất ≤ 2 lần đường ngắn nhất), nên cần ít phép xoay hơn khi chèn/xóa. Đây là lý do std::set và std::map trong C++ STL dùng Red-Black Tree."
+    },
+    {
+      "id": "tree2-q4",
+      "question": "Tại sao trong Lập trình thi đấu, người ta KHÔNG dùng BST thuần túy?",
+      "options": [
+        "BST quá khó cài đặt",
+        "BST không hỗ trợ thao tác Insert",
+        "BST dễ bị suy biến thành O(N) bởi Test Case có dữ liệu đã sắp xếp",
+        "BST chỉ lưu được số nguyên, không lưu được chuỗi"
+      ],
+      "correctIndex": 2,
+      "explanation": "BST thuần túy có thể bị đánh sập bởi Test Case chèn dữ liệu đã sắp xếp (suy biến thành Linked List, O(N)). Thay vào đó, dùng Cây tự cân bằng như AVL hoặc Red-Black Tree để đảm bảo O(log N) trong mọi trường hợp."
+    }
+  ],
+  "graphs-1": [
+    {
+      "id": "graph1-q1",
+      "question": "Ma trận kề (Adjacency Matrix) phù hợp nhất với loại đồ thị nào?",
+      "options": [
+        "Đồ thị thưa (ít cạnh, nhiều đỉnh) vì tiết kiệm bộ nhớ",
+        "Đồ thị dày đặc (nhiều cạnh) hoặc đồ thị nhỏ (V ≤ 1000) vì kiểm tra cạnh O(1)",
+        "Đồ thị vô hướng vì Ma trận kề không hỗ trợ đồ thị có hướng",
+        "Đồ thị không có trọng số vì Ma trận kề không lưu được trọng số"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ma trận kề tốn O(V²) bộ nhớ nhưng kiểm tra cạnh (U,V) mất O(1). Phù hợp với đồ thị dày hoặc nhỏ (V≤1000). Đồ thị thưa với V lớn nên dùng Danh sách kề O(V+E)."
+    },
+    {
+      "id": "graph1-q2",
+      "question": "Thuật toán DFS (Depth First Search) sử dụng cấu trúc dữ liệu nào làm cơ sở?",
+      "options": [
+        "Queue (Hàng đợi)",
+        "Heap (Đống nhị phân)",
+        "Stack (Ngăn xếp) — thường qua đệ quy hoặc stack tường minh",
+        "Mảng đã sắp xếp"
+      ],
+      "correctIndex": 2,
+      "explanation": "DFS đi sâu theo một nhánh rồi quay lui, bản chất sử dụng Stack. Thường cài bằng đệ quy (Call Stack là Stack ngầm) hoặc Stack tường minh khi sợ Stack Overflow."
+    },
+    {
+      "id": "graph1-q3",
+      "question": "BFS (Breadth First Search) đảm bảo tìm được điều gì trên đồ thị KHÔNG có trọng số?",
+      "options": [
+        "Đường đi dài nhất từ nguồn đến đích",
+        "Đường đi ngắn nhất (ít cạnh nhất) từ đỉnh nguồn đến mọi đỉnh còn lại",
+        "Chu trình (cycle) trong đồ thị",
+        "Sắp xếp Topo của đồ thị có hướng"
+      ],
+      "correctIndex": 1,
+      "explanation": "BFS duyệt theo từng lớp (level). Bất kỳ đỉnh nào được thăm lần đầu tiên bởi BFS, đường đi đó chắc chắn là ngắn nhất (ít cạnh nhất) từ đỉnh nguồn. Đây là nền tảng của nhiều bài toán tìm đường."
+    },
+    {
+      "id": "graph1-q4",
+      "question": "Độ phức tạp thời gian của BFS và DFS khi dùng Danh sách kề là bao nhiêu?",
+      "options": ["O(V²)", "O(V × E)", "O(V + E)", "O(E log V)"],
+      "correctIndex": 2,
+      "explanation": "Cả BFS lẫn DFS với Danh sách kề đều là O(V + E) — duyệt qua mỗi đỉnh và mỗi cạnh đúng 1 lần. Đây là mức tối ưu lý thuyết cho bài toán duyệt đồ thị."
+    }
+  ],
+  "graphs-2": [
+    {
+      "id": "graph2-q1",
+      "question": "Thuật toán Dijkstra được dùng để giải bài toán nào?",
+      "options": [
+        "Tìm cây khung nhỏ nhất (MST) của đồ thị",
+        "Tìm đường đi ngắn nhất từ 1 đỉnh nguồn đến tất cả đỉnh còn lại trên đồ thị có trọng số",
+        "Sắp xếp topo (Topological Sort) đồ thị có hướng",
+        "Đếm số thành phần liên thông của đồ thị"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dijkstra tìm khoảng cách ngắn nhất từ 1 đỉnh nguồn (Source) tới toàn bộ đỉnh còn lại trên đồ thị có trọng số không âm, dựa trên tư tưởng Tham lam (Greedy)."
+    },
+    {
+      "id": "graph2-q2",
+      "question": "Tại sao Dijkstra KHÔNG hoạt động đúng khi đồ thị có cạnh trọng số âm?",
+      "options": [
+        "Vì Dijkstra không thể xử lý số âm trong mảng dist[]",
+        "Vì nguyên lý Greedy 'chốt hạ' đỉnh khi lấy khỏi Heap có thể sai — đi thêm cạnh âm có thể giảm tổng khoảng cách",
+        "Vì Heap không thể lưu trữ giá trị âm",
+        "Vì đồ thị trọng số âm không thể biểu diễn bằng Danh sách kề"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dijkstra 'chốt hạ' một đỉnh sau khi lấy ra khỏi Heap, giả sử không có đường nào ngắn hơn. Nhưng cạnh âm có thể tạo ra đường ngắn hơn sau đó, phá vỡ giả định này. Phải dùng Bellman-Ford cho đồ thị có cạnh âm."
+    },
+    {
+      "id": "graph2-q3",
+      "question": "Thao tác 'Relaxation' trong Dijkstra có nghĩa là gì?",
+      "options": [
+        "Xóa đỉnh đã xử lý khỏi đồ thị",
+        "Cập nhật dist[V] nếu tìm thấy đường đi ngắn hơn qua đỉnh U: dist[U] + weight(U,V) < dist[V]",
+        "Thêm đỉnh mới vào đồ thị",
+        "Sắp xếp lại Heap theo thứ tự mới"
+      ],
+      "correctIndex": 1,
+      "explanation": "Relaxation là cốt lõi của Dijkstra: Nếu đường đi qua U đến V ngắn hơn đường đi trực tiếp hiện tại đến V, ta 'nới lỏng' (relax) bằng cách cập nhật dist[V] = dist[U] + weight(U,V)."
+    },
+    {
+      "id": "graph2-q4",
+      "question": "Dùng Min-Heap (Priority Queue) thay cho mảng thông thường trong Dijkstra giúp cải thiện độ phức tạp từ bao nhiêu xuống bao nhiêu?",
+      "options": [
+        "Từ O(V³) xuống O(V²)",
+        "Từ O(V²) xuống O(E log V)",
+        "Từ O(E log V) xuống O(V + E)",
+        "Từ O(V log V) xuống O(E)"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dùng mảng để tìm đỉnh nhỏ nhất mất O(V) mỗi lần → tổng O(V²). Dùng Min-Heap, mỗi lần lấy đỉnh nhỏ nhất chỉ mất O(log V) → tổng O(E log V). Cải thiện vượt trội cho đồ thị thưa."
+    }
+  ],
+  "graphs-3": [
+    {
+      "id": "graph3-q1",
+      "question": "Cây khung nhỏ nhất (MST) của đồ thị V đỉnh có bao nhiêu cạnh?",
+      "options": ["V cạnh", "V - 1 cạnh", "V + 1 cạnh", "E cạnh (toàn bộ cạnh)"],
+      "correctIndex": 1,
+      "explanation": "MST là cây khung kết nối tất cả V đỉnh với tổng trọng số nhỏ nhất mà không tạo chu trình. Một cây với V đỉnh luôn có đúng V-1 cạnh."
+    },
+    {
+      "id": "graph3-q2",
+      "question": "Trong thuật toán Kruskal, làm sao để kiểm tra nhanh nhất xem thêm một cạnh có tạo thành chu trình không?",
+      "options": [
+        "Chạy DFS từ đầu trên toàn bộ đồ thị",
+        "Dùng Ma trận kề kiểm tra trực tiếp",
+        "Dùng Disjoint Set Union (DSU): nếu Find(U) == Find(V) thì tạo chu trình",
+        "Dùng BFS từ U đến V để kiểm tra đường đi"
+      ],
+      "correctIndex": 2,
+      "explanation": "DSU là cấu trúc dữ liệu chuyên quản lý 'bè phái' (tập hợp). Nếu U và V đã thuộc cùng tập hợp (Find(U) == Find(V)), nối thêm cạnh U-V sẽ tạo chu trình. Độ phức tạp gần O(1) nhờ Path Compression."
+    },
+    {
+      "id": "graph3-q3",
+      "question": "Kỹ thuật 'Nén đường (Path Compression)' trong DSU giúp ích gì?",
+      "options": [
+        "Giảm số cạnh trong đồ thị",
+        "Khi gọi Find(x), cho x trỏ thẳng lên gốc (root), giúp các lần Find sau gần O(1)",
+        "Gộp 2 tập hợp theo chiều cao để cây không bị cao",
+        "Nén toàn bộ đồ thị vào bộ nhớ nhỏ hơn"
+      ],
+      "correctIndex": 1,
+      "explanation": "Path Compression: khi Find(x) đệ quy tìm root, ta gán parent[x] = root luôn. Những lần Find sau đó từ x chỉ cần 1 bước. Kết hợp với Union by Rank, DSU đạt độ phức tạp xấp xỉ O(1) mỗi thao tác."
+    },
+    {
+      "id": "graph3-q4",
+      "question": "Độ phức tạp của thuật toán Kruskal (dùng DSU với Path Compression) là bao nhiêu?",
+      "options": ["O(V²)", "O(E + V)", "O(E log E)", "O(V log V)"],
+      "correctIndex": 2,
+      "explanation": "Kruskal chủ yếu tốn thời gian sắp xếp E cạnh theo trọng số: O(E log E). Phần xử lý DSU sau đó gần như tuyến tính (Inverse Ackermann). Tổng là O(E log E), rất hiệu quả cho đồ thị thưa."
+    }
+  ],
   "stacks-queues": [
     {
       "id": "q1",
@@ -30,3 +405,4 @@
     }
   ]
 }
+
