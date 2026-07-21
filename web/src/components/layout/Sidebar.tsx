@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GraduationCap, LayoutDashboard, Binary, Workflow, GitBranch, Network, Database, MonitorPlay } from "lucide-react";
+import { GraduationCap, LayoutDashboard, Binary, Workflow, GitBranch, Network, Database, MonitorPlay, X } from "lucide-react";
 import clsx from "clsx";
+import { useSidebar } from "@/components/providers/SidebarProvider";
 
 // A slightly richer chapter list with icons based on slug
 const TOPICS = [
@@ -19,19 +21,42 @@ const TOPICS = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { isMobileMenuOpen, setMobileMenuOpen } = useSidebar();
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname, setMobileMenuOpen]);
 
   return (
-    <aside className="hidden md:flex w-72 shrink-0 flex-col border-r border-neutral-200/50 bg-white/50 backdrop-blur-md dark:border-neutral-800/50 dark:bg-neutral-900/50 z-40 transition-colors duration-300">
-      <div className="flex h-16 items-center px-6 border-b border-neutral-200/50 dark:border-neutral-800/50">
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/20 transition-transform group-hover:scale-105">
-            <GraduationCap className="h-5 w-5" />
-          </div>
-          <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
-            CSD201
-          </span>
-        </Link>
-      </div>
+    <>
+      {/* Mobile Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 z-40 bg-neutral-900/50 backdrop-blur-sm md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar Content */}
+      <aside className={clsx(
+        "fixed md:static inset-y-0 left-0 z-50 flex w-72 shrink-0 flex-col border-r border-neutral-200/50 bg-white/90 md:bg-white/50 backdrop-blur-md dark:border-neutral-800/50 dark:bg-neutral-900/90 md:dark:bg-neutral-900/50 transition-transform duration-300 ease-in-out md:translate-x-0",
+        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
+        <div className="flex h-16 items-center justify-between px-6 border-b border-neutral-200/50 dark:border-neutral-800/50">
+          <Link href="/" className="flex items-center gap-3 group" onClick={() => setMobileMenuOpen(false)}>
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/20 transition-transform group-hover:scale-105">
+              <GraduationCap className="h-5 w-5" />
+            </div>
+            <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400">
+              CSD201
+            </span>
+          </Link>
+          <button 
+            className="md:hidden p-1.5 -mr-1.5 rounded-lg text-neutral-500 hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 transition-colors"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-6 custom-scrollbar">
         <div className="mb-4 text-xs font-bold text-neutral-400 uppercase tracking-wider dark:text-neutral-500 px-2">
@@ -96,5 +121,6 @@ export function Sidebar() {
         </nav>
       </div>
     </aside>
+    </>
   );
 }

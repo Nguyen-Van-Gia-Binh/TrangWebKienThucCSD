@@ -7,48 +7,13 @@ import { getHighlightKind } from "@/lib/types";
 import type { AVLState, AVLNode } from "./generateSteps";
 import clsx from "clsx";
 
+import { calculateTreeLayout } from "../common/treeLayout";
+
 const NODE_RADIUS = 20;
-const LEVEL_HEIGHT = 70;
-const MIN_NODE_SPACING = 55;
-
-function calculateLayout(nodesArr: AVLNode[], rootId: string | null) {
-  const layout: Record<string, { x: number; y: number }> = {};
-  if (!rootId) return layout;
-
-  const positions: { id: string; level: number; offset: number }[] = [];
-
-  // In-order traversal to determine X offset
-  let currentOffset = 0;
-  const traverse = (id: string, level: number) => {
-    const node = nodesArr.find(n => n.id === id);
-    if (!node) return;
-    if (node.left) traverse(node.left, level + 1);
-    positions.push({ id, level, offset: currentOffset++ });
-    if (node.right) traverse(node.right, level + 1);
-  };
-
-  traverse(rootId, 0);
-
-  // Center the tree
-  if (positions.length > 0) {
-    const minOffset = Math.min(...positions.map((p) => p.offset));
-    const maxOffset = Math.max(...positions.map((p) => p.offset));
-    const centerOffset = (minOffset + maxOffset) / 2;
-
-    positions.forEach((p) => {
-      layout[p.id] = {
-        x: (p.offset - centerOffset) * MIN_NODE_SPACING,
-        y: p.level * LEVEL_HEIGHT,
-      };
-    });
-  }
-
-  return layout;
-}
 
 export function Canvas({ step }: CanvasProps<AVLState>) {
   const { nodes, root } = step.state;
-  const layout = useMemo(() => calculateLayout(nodes, root), [nodes, root]);
+  const layout = useMemo(() => calculateTreeLayout(nodes, root), [nodes, root]);
 
   return (
     <div className="relative flex h-full w-full min-h-[400px] flex-col items-center justify-start overflow-hidden p-4">

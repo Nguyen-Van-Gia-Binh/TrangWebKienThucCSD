@@ -7,7 +7,7 @@ import * as React from "react";
 // Bỏ qua lỗi đỏ thẻ <script> của thư viện next-themes trên React 19
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   const orig = console.error;
-  console.error = (...args: any[]) => {
+  console.error = (...args: unknown[]) => {
     if (typeof args[0] === "string" && args[0].includes("Encountered a script tag")) {
       return;
     }

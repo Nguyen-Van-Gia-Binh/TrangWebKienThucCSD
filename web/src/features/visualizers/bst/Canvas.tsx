@@ -7,45 +7,13 @@ import { getHighlightKind } from "@/lib/types";
 import type { BSTState, BSTNode } from "./generateSteps";
 import clsx from "clsx";
 
+import { calculateTreeLayout } from "../common/treeLayout";
+
 const NODE_RADIUS = 20;
-const LEVEL_HEIGHT = 60;
-const MIN_NODE_SPACING = 50;
-
-function calculateLayout(nodes: Record<string, BSTNode>, rootId: string | null) {
-  const layout: Record<string, { x: number; y: number }> = {};
-  if (!rootId) return layout;
-
-  const positions: { id: string; level: number; offset: number }[] = [];
-
-  // In-order traversal to determine X offset
-  let currentOffset = 0;
-  const traverse = (id: string, level: number) => {
-    const node = nodes[id];
-    if (node.left) traverse(node.left, level + 1);
-    positions.push({ id, level, offset: currentOffset++ });
-    if (node.right) traverse(node.right, level + 1);
-  };
-
-  traverse(rootId, 0);
-
-  // Center the tree
-  const minOffset = Math.min(...positions.map((p) => p.offset));
-  const maxOffset = Math.max(...positions.map((p) => p.offset));
-  const centerOffset = (minOffset + maxOffset) / 2;
-
-  positions.forEach((p) => {
-    layout[p.id] = {
-      x: (p.offset - centerOffset) * MIN_NODE_SPACING,
-      y: p.level * LEVEL_HEIGHT,
-    };
-  });
-
-  return layout;
-}
 
 export function Canvas({ step }: CanvasProps<BSTState>) {
   const { nodes, rootId, targetValue, targetAction } = step.state;
-  const layout = useMemo(() => calculateLayout(nodes, rootId), [nodes, rootId]);
+  const layout = useMemo(() => calculateTreeLayout(Object.values(nodes), rootId), [nodes, rootId]);
 
   let targetNodePos = null;
   if (targetValue !== null && targetValue !== undefined) {

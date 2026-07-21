@@ -4,6 +4,7 @@ import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { SidebarProvider } from "@/components/providers/SidebarProvider";
 import { Footer } from "@/components/layout/Footer";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 
@@ -34,10 +35,11 @@ export default function RootLayout({
         className={`${beVietnamPro.variable} ${jetbrainsMono.variable} font-sans antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <div className="flex h-screen overflow-hidden bg-background">
-            <Sidebar />
-            <div className="flex flex-1 flex-col overflow-hidden">
-              <Header />
+          <SidebarProvider>
+            <div className="flex h-screen overflow-hidden bg-background">
+              <Sidebar />
+              <div className="flex flex-1 flex-col overflow-hidden">
+                <Header />
               <main className="flex-1 overflow-y-auto flex flex-col relative">
                 <div className="flex-1">
                   {children}
@@ -47,6 +49,7 @@ export default function RootLayout({
               </main>
             </div>
           </div>
+          </SidebarProvider>
         </ThemeProvider>
       </body>
     </html>

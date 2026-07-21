@@ -10,33 +10,29 @@ import { generateSteps as graphGenerateSteps } from './algorithms/graph.generate
 import { generateSteps as dijkstraGenerateSteps } from './algorithms/dijkstra.generateSteps';
 import { generateSteps as kruskalGenerateSteps } from './algorithms/kruskal.generateSteps';
 
+type StepGenerator = (ops: any[]) => any;
+
+const generators: Record<string, StepGenerator> = {
+  'kruskal': kruskalGenerateSteps,
+  'dijkstra': dijkstraGenerateSteps,
+  'graph': graphGenerateSteps,
+  'avl': avlGenerateSteps,
+  'recursion': recursionGenerateSteps,
+  'bst': bstGenerateSteps,
+  'sll': sllGenerateSteps,
+  'stack': stackGenerateSteps,
+  'stack-push-pop': stackGenerateSteps,
+  'queue-linear': queueLinearGenerateSteps,
+  'queue-circular': queueCircularGenerateSteps,
+};
+
 @Injectable()
 export class VisualizerService {
   generateSteps(algorithm: string, ops: any[]) {
-    switch(algorithm) {
-      case 'kruskal':
-        return kruskalGenerateSteps(ops);
-      case 'dijkstra':
-        return dijkstraGenerateSteps(ops);
-      case 'graph':
-        return graphGenerateSteps(ops);
-      case 'avl':
-        return avlGenerateSteps(ops);
-      case 'recursion':
-        return recursionGenerateSteps(ops);
-      case 'bst':
-        return bstGenerateSteps(ops);
-      case 'sll':
-        return sllGenerateSteps(ops);
-      case 'stack-push-pop':
-      case 'stack':
-        return stackGenerateSteps(ops);
-      case 'queue-linear':
-        return queueLinearGenerateSteps(ops);
-      case 'queue-circular':
-        return queueCircularGenerateSteps(ops);
-      default:
-        throw new BadRequestException('Unknown algorithm');
+    const generator = generators[algorithm];
+    if (!generator) {
+      throw new BadRequestException('Unknown algorithm');
     }
+    return generator(ops);
   }
 }

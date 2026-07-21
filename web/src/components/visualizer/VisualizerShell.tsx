@@ -28,6 +28,7 @@ function ShellInner({ slug }: { slug: string }) {
   const [error, setError] = useState<string | null>(null);
   const [retryToken, setRetryToken] = useState(0);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     let active = true;
     setIsLoading(true);

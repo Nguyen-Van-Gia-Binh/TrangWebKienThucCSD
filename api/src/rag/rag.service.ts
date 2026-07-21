@@ -44,6 +44,7 @@ export class RagService implements OnModuleInit {
       const files = fs.readdirSync(theoriesDir).filter(f => f.endsWith('.md'));
 
       // 3. Process and Chunk files
+      const allTextChunks: { id: string; topic: string; text: string }[] = [];
       for (const file of files) {
         const filePath = path.join(theoriesDir, file);
         const content = fs.readFileSync(filePath, 'utf8');
@@ -53,16 +54,32 @@ export class RagService implements OnModuleInit {
         const textChunks = content.split(/\n## |\n### /).filter(c => c.trim().length > 50);
 
         for (let i = 0; i < textChunks.length; i++) {
-          const text = textChunks[i].trim();
-          
-          // Generate vector embedding
-          const output = await this.extractor(text, { pooling: 'mean', normalize: true });
-          const vector = Array.from(output.data) as number[];
-
-          this.chunks.push({
+          allTextChunks.push({
             id: `${topicName}-${i}`,
             topic: topicName,
-            text,
+            text: textChunks[i].trim()
+          });
+        }
+      }
+
+      // 4. Batch Embeddings
+      const BATCH_SIZE = 16;
+      for (let i = 0; i < allTextChunks.length; i += BATCH_SIZE) {
+        const batch = allTextChunks.slice(i, i + BATCH_SIZE);
+        const texts = batch.map(b => b.text);
+        
+        // Generate vector embeddings for the batch
+        const output = await this.extractor(texts, { pooling: 'mean', normalize: true });
+        
+        // Convert flattened tensor data to array of vectors
+        const flatData = Array.from(output.data) as number[];
+        const batchSize = output.dims[0];
+        const embedDim = output.dims[1];
+
+        for (let j = 0; j < batch.length; j++) {
+          const vector = flatData.slice(j * embedDim, (j + 1) * embedDim);
+          this.chunks.push({
+            ...batch[j],
             vector,
           });
         }
@@ -122,10 +139,12 @@ export class RagService implements OnModuleInit {
 
       // 2. Build Prompt
       const systemPrompt = `Bạn là trợ lý ảo môn Cấu trúc dữ liệu và Giải thuật (CSD201) tại Đại học FPT.
-Bạn được tích hợp trong hệ thống RAG (Retrieval-Augmented Generation).
 Nhiệm vụ của bạn là giải đáp thắc mắc của sinh viên DỰA VÀO phần KIẾN THỨC NỀN TẢNG được cung cấp bên dưới.
-Nếu câu hỏi nằm ngoài phạm vi kiến thức được cung cấp, hãy nói rằng bạn không chắc chắn nhưng có thể đưa ra lời khuyên chung.
-Luôn trả lời bằng Tiếng Việt, thân thiện và dễ hiểu. Sử dụng định dạng Markdown nếu cần thiết (ví dụ: bôi đậm, danh sách).
+
+QUY TẮC NGHIÊM NGẶT (RẤT QUAN TRỌNG):
+1. Bạn CHỈ ĐƯỢC PHÉP trả lời các câu hỏi liên quan đến môn học Cấu trúc dữ liệu, Giải thuật và lập trình cơ bản.
+2. Nếu sinh viên hỏi về các chủ đề ngoài lề (như lịch sử, chính trị, địa lý, thể thao, hoặc các yêu cầu không liên quan đến lập trình), bạn PHẢI TỪ CHỐI trả lời một cách lịch sự và yêu cầu họ hỏi đúng trọng tâm môn học CSD201.
+3. TUYỆT ĐỐI KHÔNG được sử dụng kiến thức có sẵn của bạn để trả lời những câu hỏi ngoài lề này.
 
 KIẾN THỨC NỀN TẢNG TRÍCH XUẤT ĐƯỢC:
 ${contextText}
@@ -138,7 +157,10 @@ ${contextText}
           role: msg.role === 'user' ? 'user' : 'assistant',
           content: msg.content
         })),
-        { role: 'user', content: query }
+        { 
+          role: 'user', 
+          content: `Câu hỏi: ${query}\n\n[LƯU Ý QUAN TRỌNG: Nếu câu hỏi trên KHÔNG CÓ BẤT KỲ LIÊN QUAN NÀO đến môn học Cấu trúc dữ liệu và giải thuật (CSD201) hoặc lập trình, hãy từ chối trả lời ngay lập tức bằng tiếng Việt. Tuyệt đối không cung cấp thông tin ngoài lề.]`
+        }
       ];
 
       // Cấu hình Header cho luồng Streaming

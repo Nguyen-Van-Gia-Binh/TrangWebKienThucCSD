@@ -1,14 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
-import { GraduationCap, Search, Bell, User } from "lucide-react";
+import { GraduationCap, Search, Bell, User, Menu } from "lucide-react";
+import { useSidebar } from "@/components/providers/SidebarProvider";
 
 export function Header() {
+  const { setMobileMenuOpen } = useSidebar();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-neutral-200/50 bg-white/70 backdrop-blur-md dark:border-neutral-800/50 dark:bg-neutral-900/70 shadow-sm transition-colors duration-300">
       <div className="flex h-16 items-center px-6 gap-4">
         
-        {/* Mobile Logo */}
+        {/* Mobile Logo and Menu Toggle */}
         <div className="flex items-center gap-3 md:hidden">
+          <button 
+            onClick={() => setMobileMenuOpen(true)}
+            className="p-1.5 -ml-1.5 rounded-lg text-neutral-500 hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-white transition-colors"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
           <Link href="/" className="flex items-center gap-2 group">
             <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/20 transition-transform group-hover:scale-105">
               <GraduationCap className="h-5 w-5" />
