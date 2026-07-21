@@ -1,5 +1,5 @@
 import type { VisualizerModule } from "@/lib/types";
-import { generateSteps, type BSTOp, type BSTState } from "./generateSteps";
+import type { BSTOp, BSTState } from "./generateSteps";
 import { pseudocode } from "./pseudocode";
 import { Canvas } from "./Canvas";
 import { InputPanel } from "./InputPanel";
@@ -25,7 +25,7 @@ export const bstVisualizer: VisualizerModule<BSTOp[], BSTState> = {
   badge: "Tree",
   pseudocode: pseudocode.split("\n"),
   defaultInput,
-  generateSteps,
+  generateSteps: () => [], // Handled by API
   Canvas,
   InputPanel,
 };

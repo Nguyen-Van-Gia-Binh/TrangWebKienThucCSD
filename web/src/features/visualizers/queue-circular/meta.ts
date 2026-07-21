@@ -1,5 +1,5 @@
 import type { VisualizerModule } from "@/lib/types";
-import { generateSteps, type QueueOp, type QueueCircularState } from "./generateSteps";
+import type { QueueOp, QueueCircularState } from "./generateSteps";
 import { pseudocode } from "./pseudocode";
 import { Canvas } from "./Canvas";
 import { InputPanel } from "./InputPanel";
@@ -28,7 +28,7 @@ export const queueCircularVisualizer: VisualizerModule<QueueOp[], QueueCircularS
   badge: "Queue",
   pseudocode: pseudocode.split('\n'),
   defaultInput,
-  generateSteps,
+  generateSteps: () => [], // Handled by API
   Canvas,
   InputPanel,
 };

@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Loader2, RefreshCw } from "lucide-react";
 import { getVisualizer } from "@/features/visualizers/registry";
 import { getChapter } from "@/lib/chapters";
+import type { Step } from "@/lib/types";
 import { useStepEngine } from "./useStepEngine";
 import { StepControls } from "./StepControls";
 import { PseudocodePanel } from "./PseudocodePanel";
 import { ActionLog } from "./ActionLog";
 import { Legend } from "./Legend";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export function VisualizerShell({ slug }: { slug: string }) {
   const mod = getVisualizer(slug);
@@ -20,38 +23,52 @@ export function VisualizerShell({ slug }: { slug: string }) {
 function ShellInner({ slug }: { slug: string }) {
   const mod = getVisualizer(slug)!;
   const [input, setInput] = useState<unknown>(mod.defaultInput);
-  const [steps, setSteps] = useState<any[]>([]);
+  const [steps, setSteps] = useState<Step<unknown>[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [retryToken, setRetryToken] = useState(0);
 
   useEffect(() => {
     let active = true;
     setIsLoading(true);
-    
-    // Fetch steps from NestJS backend
-    fetch(`http://localhost:3001/visualize/${slug}/generate`, {
+    setError(null);
+
+    const url = `${API_URL}/visualize/${slug}/generate`;
+
+    fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ops: input }),
     })
-      .then((res) => res.json())
-      .then((data) => {
-        if (active) {
-          setSteps(Array.isArray(data) ? data : []);
-          setIsLoading(false);
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`Backend trả về lỗi HTTP ${res.status}`);
         }
+        return res.json();
+      })
+      .then((data) => {
+        if (!active) return;
+        setSteps(Array.isArray(data) ? data : []);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("Lỗi khi fetch steps từ backend:", err);
-        if (active) {
-          setSteps([{ action: "Error connecting to backend", state: {} }]);
-          setIsLoading(false);
-        }
+        if (!active) return;
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Không thể kết nối tới máy chủ visualizer.",
+        );
+        setSteps([]);
+        setIsLoading(false);
       });
 
     return () => {
       active = false;
     };
-  }, [slug, input]);
+  }, [slug, input, retryToken]);
+
+  const retry = useCallback(() => setRetryToken((t) => t + 1), []);
 
   const EMPTY_STEPS = useMemo(() => [{ state: {}, action: "Loading..." }], []);
   const engine = useStepEngine(steps.length > 0 ? steps : EMPTY_STEPS);
@@ -91,6 +108,27 @@ function ShellInner({ slug }: { slug: string }) {
         </p>
       </div>
 
+      {error && (
+        <div className="mb-4 flex items-start gap-3 rounded-xl border border-rose-300 bg-rose-50 p-4 text-sm text-rose-800 dark:border-rose-800 dark:bg-rose-950/40 dark:text-rose-200">
+          <AlertTriangle size={18} className="mt-0.5 shrink-0" />
+          <div className="flex-1">
+            <p className="font-semibold">Không kết nối được tới backend visualizer</p>
+            <p className="mt-1 text-rose-700 dark:text-rose-300">{error}</p>
+            <p className="mt-1 text-xs text-rose-600 dark:text-rose-400">
+              Đã gọi: <code>{API_URL}/visualize/{slug}/generate</code>. Hãy chắc chắn service{" "}
+              <code>api</code> đang chạy (<code>cd api && npm run start:dev</code>).
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={retry}
+            className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-rose-300 px-3 py-1.5 text-xs font-semibold text-rose-700 transition-colors hover:bg-rose-100 dark:border-rose-700 dark:text-rose-200 dark:hover:bg-rose-900"
+          >
+            <RefreshCw size={13} /> Thử lại
+          </button>
+        </div>
+      )}
+
       <div className="grid gap-4 lg:grid-cols-3">
         <div className="flex flex-col gap-4 lg:col-span-2">
           <InputPanel defaultInput={mod.defaultInput} onRun={setInput} />
@@ -108,7 +146,7 @@ function ShellInner({ slug }: { slug: string }) {
               <Canvas step={engine.current} />
             ) : (
               <div className="min-h-[400px] flex items-center justify-center text-neutral-500">
-                {isLoading ? "" : "Không có dữ liệu mô phỏng"}
+                {isLoading ? "" : error ? "" : "Không có dữ liệu mô phỏng"}
               </div>
             )}
           </div>

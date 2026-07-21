@@ -11,20 +11,23 @@ export function InputPanel({ defaultInput, onRun }: InputPanelProps<SLLOp[]>) {
   const [searchValue, setSearchValue] = useState("");
 
   const handleInsertHead = () => {
-    if (!headValue.trim()) return;
-    setOps([...ops, { type: "insertHead", value: parseInt(headValue, 10) }]);
+    const v = Number.parseInt(headValue, 10);
+    if (Number.isNaN(v)) return;
+    setOps([...ops, { type: "insertHead", value: v }]);
     setHeadValue("");
   };
 
   const handleInsertTail = () => {
-    if (!tailValue.trim()) return;
-    setOps([...ops, { type: "insertTail", value: parseInt(tailValue, 10) }]);
+    const v = Number.parseInt(tailValue, 10);
+    if (Number.isNaN(v)) return;
+    setOps([...ops, { type: "insertTail", value: v }]);
     setTailValue("");
   };
 
   const handleSearch = () => {
-    if (!searchValue.trim()) return;
-    setOps([...ops, { type: "search", value: parseInt(searchValue, 10) }]);
+    const v = Number.parseInt(searchValue, 10);
+    if (Number.isNaN(v)) return;
+    setOps([...ops, { type: "search", value: v }]);
     setSearchValue("");
   };
 

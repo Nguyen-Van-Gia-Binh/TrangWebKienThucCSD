@@ -1,5 +1,5 @@
 import type { VisualizerModule } from "@/lib/types";
-import { generateSteps, type StackOp, type StackState } from "./generateSteps";
+import type { StackOp, StackState } from "./generateSteps";
 import { pseudocode } from "./pseudocode";
 import { Canvas } from "./Canvas";
 import { InputPanel } from "./InputPanel";
@@ -24,7 +24,7 @@ export const stackVisualizer: VisualizerModule<StackOp[], StackState> = {
   badge: "Stack",
   pseudocode,
   defaultInput,
-  generateSteps,
+  generateSteps: () => [], // Handled by API
   Canvas,
   InputPanel,
 };

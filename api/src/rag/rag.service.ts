@@ -91,31 +91,37 @@ export class RagService implements OnModuleInit {
   // Retrieve top K most similar chunks
   private async retrieve(query: string, topK: number = 3): Promise<DocumentChunk[]> {
     if (!this.extractor) return [];
-    
-    // Embed the query
-    const output = await this.extractor(query, { pooling: 'mean', normalize: true });
-    const queryVector = Array.from(output.data) as number[];
 
-    // Calculate similarities
-    const scoredChunks = this.chunks.map(chunk => ({
-      chunk,
-      score: this.cosineSimilarity(queryVector, chunk.vector)
-    }));
+    try {
+      // Embed the query
+      const output = await this.extractor(query, { pooling: 'mean', normalize: true });
+      const queryVector = Array.from(output.data) as number[];
 
-    // Sort by descending score
-    scoredChunks.sort((a, b) => b.score - a.score);
-    
-    // Return top K
-    return scoredChunks.slice(0, topK).map(sc => sc.chunk);
+      // Calculate similarities
+      const scoredChunks = this.chunks.map(chunk => ({
+        chunk,
+        score: this.cosineSimilarity(queryVector, chunk.vector)
+      }));
+
+      // Sort by descending score
+      scoredChunks.sort((a, b) => b.score - a.score);
+
+      // Return top K
+      return scoredChunks.slice(0, topK).map(sc => sc.chunk);
+    } catch (error) {
+      this.logger.error('Failed to retrieve context chunks: ', error);
+      return [];
+    }
   }
 
   async chatStream(query: string, history: any[], res: Response) {
-    // 1. Retrieve Context
-    const contextChunks = await this.retrieve(query, 3);
-    const contextText = contextChunks.map(c => `[Chủ đề: ${c.topic}]\n${c.text}`).join('\n\n---\n\n');
+    try {
+      // 1. Retrieve Context
+      const contextChunks = await this.retrieve(query, 3);
+      const contextText = contextChunks.map(c => `[Chủ đề: ${c.topic}]\n${c.text}`).join('\n\n---\n\n');
 
-    // 2. Build Prompt
-    const systemPrompt = `Bạn là trợ lý ảo môn Cấu trúc dữ liệu và Giải thuật (CSD201) tại Đại học FPT. 
+      // 2. Build Prompt
+      const systemPrompt = `Bạn là trợ lý ảo môn Cấu trúc dữ liệu và Giải thuật (CSD201) tại Đại học FPT.
 Bạn được tích hợp trong hệ thống RAG (Retrieval-Augmented Generation).
 Nhiệm vụ của bạn là giải đáp thắc mắc của sinh viên DỰA VÀO phần KIẾN THỨC NỀN TẢNG được cung cấp bên dưới.
 Nếu câu hỏi nằm ngoài phạm vi kiến thức được cung cấp, hãy nói rằng bạn không chắc chắn nhưng có thể đưa ra lời khuyên chung.
@@ -125,21 +131,20 @@ KIẾN THỨC NỀN TẢNG TRÍCH XUẤT ĐƯỢC:
 ${contextText}
 `;
 
-    // Chuẩn bị Messages format của Ollama
-    const messages = [
-      { role: 'system', content: systemPrompt },
-      ...history.map(msg => ({
-        role: msg.role === 'user' ? 'user' : 'assistant',
-        content: msg.content
-      })),
-      { role: 'user', content: query }
-    ];
+      // Chuẩn bị Messages format của Ollama
+      const messages = [
+        { role: 'system', content: systemPrompt },
+        ...history.map(msg => ({
+          role: msg.role === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        })),
+        { role: 'user', content: query }
+      ];
 
-    // Cấu hình Header cho luồng Streaming
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Transfer-Encoding', 'chunked');
+      // Cấu hình Header cho luồng Streaming
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('Transfer-Encoding', 'chunked');
 
-    try {
       // 3. Gọi Ollama API (Stream)
       const stream = await this.ollama.chat({
         model: 'llama3', // Chuyển sang llama3 hoặc qwen2 vì phi3 quá yếu Tiếng Việt
@@ -161,8 +166,12 @@ ${contextText}
       }
       res.end();
     } catch (error) {
-      this.logger.error('Ollama Error: ', error);
-      const errorMsg = JSON.stringify('\n\n*(Lỗi: Không thể kết nối đến Ollama. Vui lòng đảm bảo bạn đã chạy `ollama run phi3`)*');
+      this.logger.error('Chat stream error: ', error);
+      if (!res.headersSent) {
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+        res.setHeader('Transfer-Encoding', 'chunked');
+      }
+      const errorMsg = JSON.stringify('\n\n*(Lỗi: Không thể kết nối đến Ollama. Vui lòng đảm bảo bạn đã chạy `ollama run llama3`)*');
       res.write(`0:${errorMsg}\n`);
       res.end();
     }

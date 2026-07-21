@@ -1,5 +1,5 @@
 import type { VisualizerModule } from "@/lib/types";
-import { generateSteps, type QueueOp, type QueueLinearState } from "./generateSteps";
+import type { QueueOp, QueueLinearState } from "./generateSteps";
 import { pseudocode } from "./pseudocode";
 import { Canvas } from "./Canvas";
 import { InputPanel } from "./InputPanel";
@@ -23,7 +23,7 @@ export const queueLinearVisualizer: VisualizerModule<QueueOp[], QueueLinearState
   badge: "Queue",
   pseudocode: pseudocode.split('\n'),
   defaultInput,
-  generateSteps,
+  generateSteps: () => [], // Handled by API
   Canvas,
   InputPanel,
 };

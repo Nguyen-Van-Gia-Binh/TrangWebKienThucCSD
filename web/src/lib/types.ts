@@ -39,7 +39,8 @@ export interface VisualizerModule<TInput, TState> {
   badge: string;
   pseudocode: string[];
   defaultInput: TInput;
-  generateSteps: StepGenerator<TInput, TState>;
+  // Step generation now lives on the backend (api/src/visualizer); unused client-side.
+  generateSteps?: StepGenerator<TInput, TState>;
   Canvas: ComponentType<CanvasProps<TState>>;
   InputPanel: ComponentType<InputPanelProps<TInput>>;
 }

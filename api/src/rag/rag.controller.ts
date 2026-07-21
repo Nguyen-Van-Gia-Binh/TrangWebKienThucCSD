@@ -12,7 +12,11 @@ export class RagController {
       return res.status(400).json({ error: 'Messages are required' });
     }
 
-    const latestMessage = messages[messages.length - 1].content;
+    const latestMessage = messages[messages.length - 1]?.content;
+    if (typeof latestMessage !== 'string' || !latestMessage.trim()) {
+      return res.status(400).json({ error: 'Last message must have non-empty text content' });
+    }
+
     const history = messages.slice(0, -1);
 
     // Stream the response back to Next.js

@@ -1,5 +1,5 @@
 {
-  "stacks": [
+  "stacks-queues": [
     {
       "id": "q1",
       "question": "Cấu trúc dữ liệu Ngăn xếp (Stack) tuân theo nguyên tắc nào?",
@@ -13,9 +13,7 @@
       "options": ["pop", "push", "peek (hoặc top)", "dequeue"],
       "correctIndex": 2,
       "explanation": "Peek (hoặc top) dùng để xem giá trị phần tử trên cùng mà không thay đổi trạng thái của stack."
-    }
-  ],
-  "queues": [
+    },
     {
       "id": "q3",
       "question": "Hàng đợi (Queue) tuân theo nguyên lý nào?",

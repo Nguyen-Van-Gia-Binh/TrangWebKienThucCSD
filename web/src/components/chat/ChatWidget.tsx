@@ -1,17 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useChat } from "ai/react";
-import { Bot, X, MessageSquare, Send, Loader2, User } from "lucide-react";
+import { useChat, type Message } from "ai/react";
+import { AlertTriangle, Bot, X, MessageSquare, Send, Loader2, User } from "lucide-react";
 import Markdown from "markdown-to-jsx";
 import clsx from "clsx";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Load history from localStorage only on mount
-  const [initialMessages, setInitialMessages] = useState<any[]>([]);
+  const [initialMessages, setInitialMessages] = useState<Message[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -24,17 +26,20 @@ export function ChatWidget() {
     setIsLoaded(true);
   }, []);
 
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: "http://localhost:3001/chat",
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+    api: `${API_URL}/chat`,
     initialMessages: initialMessages,
+    onError: (err) => {
+      console.error("Chat error:", err);
+    },
   });
 
-  // Save to localStorage whenever messages change
+  // Save to localStorage only once a turn has fully finished (not mid-stream, not on error)
   useEffect(() => {
-    if (isLoaded && messages.length > 0) {
+    if (isLoaded && !isLoading && !error && messages.length > 0) {
       localStorage.setItem("csd201_chat_history", JSON.stringify(messages));
     }
-  }, [messages, isLoaded]);
+  }, [messages, isLoaded, isLoading, error]);
 
   // Auto scroll to bottom
   useEffect(() => {
@@ -71,7 +76,11 @@ export function ChatWidget() {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-neutral-900 dark:text-white">Trợ lý CSD201</h3>
-              <p className="text-[10px] text-emerald-500 font-medium">● Local AI Online</p>
+              {error ? (
+                <p className="text-[10px] text-rose-500 font-medium">● Mất kết nối backend</p>
+              ) : (
+                <p className="text-[10px] text-emerald-500 font-medium">● Local AI Online</p>
+              )}
             </div>
           </div>
           <button
@@ -138,6 +147,17 @@ export function ChatWidget() {
                 </div>
               </div>
             ))
+          )}
+          {error && (
+            <div className="flex gap-3 flex-row">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose-100 text-rose-600 dark:bg-rose-900/50 dark:text-rose-400">
+                <AlertTriangle className="h-4 w-4" />
+              </div>
+              <div className="max-w-[80%] rounded-2xl px-4 py-2 text-sm bg-rose-50 text-rose-800 dark:bg-rose-950/40 dark:text-rose-200 rounded-tl-sm">
+                Không thể kết nối tới backend chatbot ({API_URL}). Hãy chắc chắn <code>api</code> (và Ollama)
+                đang chạy, rồi thử gửi lại tin nhắn.
+              </div>
+            </div>
           )}
           {isLoading && (
             <div className="flex gap-3 flex-row">
