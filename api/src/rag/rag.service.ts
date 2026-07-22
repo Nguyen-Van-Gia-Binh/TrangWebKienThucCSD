@@ -17,20 +17,17 @@ export class RagService implements OnModuleInit {
   private chunks: DocumentChunk[] = [];
   private extractor: any = null;
 
-  async onModuleInit() {
-    this.logger.log('Initializing Local RAG Vector Store...');
-    
-    try {
-      // 1. Load the embedding model locally (No API key!)
-      // Note: Transformers.js is ESM, so we use dynamic import
-      const { pipeline } = await import('@xenova/transformers');
-      
-      this.logger.log('Loading Xenova/paraphrase-multilingual-MiniLM-L12-v2 embedding model...');
-      this.extractor = await pipeline('feature-extraction', 'Xenova/paraphrase-multilingual-MiniLM-L12-v2', {
-        quantized: true, // Use quantized for faster CPU inference
-      });
+  onModuleInit() {
+    this.logger.log('Initializing RAG Vector Store in background...');
+    // Run initialization asynchronously so NestJS starts immediately & binds to PORT
+    setTimeout(() => {
+      this.initVectorStore();
+    }, 100);
+  }
 
-      // 2. Read all markdown files from the knowledge base (with fallbacks for production/Docker)
+  private async initVectorStore() {
+    try {
+      // 1. Read all markdown files from the knowledge base
       let theoriesDir = path.join(__dirname, '..', '..', '..', 'web', 'src', 'content', 'theories');
       if (!fs.existsSync(theoriesDir)) {
         const fallbackPaths = [
@@ -50,14 +47,13 @@ export class RagService implements OnModuleInit {
         ? fs.readdirSync(theoriesDir).filter(f => f.endsWith('.md'))
         : [];
 
-      // 3. Process and Chunk files
+      // 2. Process and Chunk files
       const allTextChunks: { id: string; topic: string; text: string }[] = [];
       for (const file of files) {
         const filePath = path.join(theoriesDir, file);
         const content = fs.readFileSync(filePath, 'utf8');
         const topicName = file.replace('.md', '');
 
-        // Simple chunking strategy: split by double newline or headers
         const textChunks = content.split(/\n## |\n### /).filter(c => c.trim().length > 50);
 
         for (let i = 0; i < textChunks.length; i++) {
@@ -69,31 +65,39 @@ export class RagService implements OnModuleInit {
         }
       }
 
-      // 4. Batch Embeddings
-      const BATCH_SIZE = 16;
-      for (let i = 0; i < allTextChunks.length; i += BATCH_SIZE) {
-        const batch = allTextChunks.slice(i, i + BATCH_SIZE);
-        const texts = batch.map(b => b.text);
-        
-        // Generate vector embeddings for the batch
-        const output = await this.extractor(texts, { pooling: 'mean', normalize: true });
-        
-        // Convert flattened tensor data to array of vectors
-        const flatData = Array.from(output.data) as number[];
-        const embedDim = output.dims[1];
+      // 3. Attempt local embedding with Transformers.js (Memory Safe)
+      try {
+        const { pipeline } = await import('@xenova/transformers');
+        this.logger.log('Loading Xenova/paraphrase-multilingual-MiniLM-L12-v2 embedding model...');
+        this.extractor = await pipeline('feature-extraction', 'Xenova/paraphrase-multilingual-MiniLM-L12-v2', {
+          quantized: true,
+        });
 
-        for (let j = 0; j < batch.length; j++) {
-          const vector = flatData.slice(j * embedDim, (j + 1) * embedDim);
-          this.chunks.push({
-            ...batch[j],
-            vector,
-          });
+        const BATCH_SIZE = 16;
+        for (let i = 0; i < allTextChunks.length; i += BATCH_SIZE) {
+          const batch = allTextChunks.slice(i, i + BATCH_SIZE);
+          const texts = batch.map(b => b.text);
+          const output = await this.extractor(texts, { pooling: 'mean', normalize: true });
+          const flatData = Array.from(output.data) as number[];
+          const embedDim = output.dims[1];
+
+          for (let j = 0; j < batch.length; j++) {
+            const vector = flatData.slice(j * embedDim, (j + 1) * embedDim);
+            this.chunks.push({
+              ...batch[j],
+              vector,
+            });
+          }
         }
+        this.logger.log(`RAG initialized: Embedded ${this.chunks.length} chunks from ${files.length} files.`);
+      } catch (embedError) {
+        this.logger.warn('Embedding model load skipped (low RAM mode), falling back to keyword context matching: ', embedError);
+        // Fallback for low RAM environments: store text chunks for keyword search
+        this.chunks = allTextChunks.map(c => ({ ...c, vector: [] }));
       }
-      this.logger.log(`RAG initialized: Embedded ${this.chunks.length} chunks from ${files.length} files.`);
       
     } catch (error) {
-      this.logger.error('Failed to initialize RAG embeddings: ', error);
+      this.logger.error('Failed to initialize RAG store: ', error);
     }
   }
 
@@ -113,7 +117,25 @@ export class RagService implements OnModuleInit {
 
   // Retrieve top K most similar chunks
   private async retrieve(query: string, topK: number = 3): Promise<DocumentChunk[]> {
-    if (!this.extractor) return [];
+    if (this.chunks.length === 0) return [];
+
+    if (!this.extractor) {
+      // Fallback keyword search for low RAM environments
+      const queryLower = query.toLowerCase();
+      const keywords = queryLower.split(/\s+/).filter(k => k.length > 2);
+      
+      const scored = this.chunks.map(chunk => {
+        const textLower = chunk.text.toLowerCase();
+        let score = 0;
+        for (const kw of keywords) {
+          if (textLower.includes(kw)) score += 1;
+        }
+        return { chunk, score };
+      });
+      
+      scored.sort((a, b) => b.score - a.score);
+      return scored.slice(0, topK).map(s => s.chunk);
+    }
 
     try {
       // Embed the query
