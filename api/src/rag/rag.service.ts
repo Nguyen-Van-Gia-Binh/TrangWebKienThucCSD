@@ -65,36 +65,44 @@ export class RagService implements OnModuleInit {
         }
       }
 
-      // 3. Attempt local embedding with Transformers.js (Memory Safe)
-      try {
-        const { pipeline } = await import('@xenova/transformers');
-        this.logger.log('Loading Xenova/paraphrase-multilingual-MiniLM-L12-v2 embedding model...');
-        this.extractor = await pipeline('feature-extraction', 'Xenova/paraphrase-multilingual-MiniLM-L12-v2', {
-          quantized: true,
-        });
+      // 3. In Production / Cloud environments (e.g. Render with 512MB RAM limit),
+      // we use fast Keyword & Term Matcher to prevent ONNX native OOM (status 137) crashes.
+      const isProduction = process.env.NODE_ENV === 'production';
 
-        const BATCH_SIZE = 16;
-        for (let i = 0; i < allTextChunks.length; i += BATCH_SIZE) {
-          const batch = allTextChunks.slice(i, i + BATCH_SIZE);
-          const texts = batch.map(b => b.text);
-          const output = await this.extractor(texts, { pooling: 'mean', normalize: true });
-          const flatData = Array.from(output.data) as number[];
-          const embedDim = output.dims[1];
+      if (!isProduction) {
+        try {
+          const { pipeline } = await import('@xenova/transformers');
+          this.logger.log('Loading Xenova/paraphrase-multilingual-MiniLM-L12-v2 embedding model...');
+          this.extractor = await pipeline('feature-extraction', 'Xenova/paraphrase-multilingual-MiniLM-L12-v2', {
+            quantized: true,
+          });
 
-          for (let j = 0; j < batch.length; j++) {
-            const vector = flatData.slice(j * embedDim, (j + 1) * embedDim);
-            this.chunks.push({
-              ...batch[j],
-              vector,
-            });
+          const BATCH_SIZE = 16;
+          for (let i = 0; i < allTextChunks.length; i += BATCH_SIZE) {
+            const batch = allTextChunks.slice(i, i + BATCH_SIZE);
+            const texts = batch.map(b => b.text);
+            const output = await this.extractor(texts, { pooling: 'mean', normalize: true });
+            const flatData = Array.from(output.data) as number[];
+            const embedDim = output.dims[1];
+
+            for (let j = 0; j < batch.length; j++) {
+              const vector = flatData.slice(j * embedDim, (j + 1) * embedDim);
+              this.chunks.push({
+                ...batch[j],
+                vector,
+              });
+            }
           }
+          this.logger.log(`RAG initialized: Embedded ${this.chunks.length} chunks from ${files.length} files.`);
+          return;
+        } catch (embedError) {
+          this.logger.warn('Embedding model load skipped: ', embedError);
         }
-        this.logger.log(`RAG initialized: Embedded ${this.chunks.length} chunks from ${files.length} files.`);
-      } catch (embedError) {
-        this.logger.warn('Embedding model load skipped (low RAM mode), falling back to keyword context matching: ', embedError);
-        // Fallback for low RAM environments: store text chunks for keyword search
-        this.chunks = allTextChunks.map(c => ({ ...c, vector: [] }));
       }
+
+      // Production / Low RAM Mode: Store text chunks for instant keyword search
+      this.chunks = allTextChunks.map(c => ({ ...c, vector: [] }));
+      this.logger.log(`RAG initialized (Production Keyword Mode): Loaded ${this.chunks.length} knowledge chunks.`);
       
     } catch (error) {
       this.logger.error('Failed to initialize RAG store: ', error);
