@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Ollama } from 'ollama';
 import { Response } from 'express';
 
 // Lớp đại diện cho 1 đoạn văn bản và Vector của nó
@@ -17,11 +16,6 @@ export class RagService implements OnModuleInit {
   private readonly logger = new Logger(RagService.name);
   private chunks: DocumentChunk[] = [];
   private extractor: any = null;
-  private ollama: Ollama;
-
-  constructor() {
-    this.ollama = new Ollama({ host: 'http://localhost:11434' });
-  }
 
   async onModuleInit() {
     this.logger.log('Initializing Local RAG Vector Store...');
@@ -29,19 +23,32 @@ export class RagService implements OnModuleInit {
     try {
       // 1. Load the embedding model locally (No API key!)
       // Note: Transformers.js is ESM, so we use dynamic import
-      const { pipeline, env } = await import('@xenova/transformers');
-      
-      // Disable remote models if needed, but for first run it needs to download weights
-      // env.allowLocalModels = false; 
+      const { pipeline } = await import('@xenova/transformers');
       
       this.logger.log('Loading Xenova/paraphrase-multilingual-MiniLM-L12-v2 embedding model...');
       this.extractor = await pipeline('feature-extraction', 'Xenova/paraphrase-multilingual-MiniLM-L12-v2', {
         quantized: true, // Use quantized for faster CPU inference
       });
 
-      // 2. Read all markdown files from the knowledge base
-      const theoriesDir = path.join(__dirname, '..', '..', '..', 'web', 'src', 'content', 'theories');
-      const files = fs.readdirSync(theoriesDir).filter(f => f.endsWith('.md'));
+      // 2. Read all markdown files from the knowledge base (with fallbacks for production/Docker)
+      let theoriesDir = path.join(__dirname, '..', '..', '..', 'web', 'src', 'content', 'theories');
+      if (!fs.existsSync(theoriesDir)) {
+        const fallbackPaths = [
+          path.join(process.cwd(), '..', 'web', 'src', 'content', 'theories'),
+          path.join(process.cwd(), 'theories'),
+          path.join(process.cwd(), 'src', 'content', 'theories'),
+        ];
+        for (const p of fallbackPaths) {
+          if (fs.existsSync(p)) {
+            theoriesDir = p;
+            break;
+          }
+        }
+      }
+      
+      const files = fs.existsSync(theoriesDir) 
+        ? fs.readdirSync(theoriesDir).filter(f => f.endsWith('.md'))
+        : [];
 
       // 3. Process and Chunk files
       const allTextChunks: { id: string; topic: string; text: string }[] = [];
@@ -73,7 +80,6 @@ export class RagService implements OnModuleInit {
         
         // Convert flattened tensor data to array of vectors
         const flatData = Array.from(output.data) as number[];
-        const batchSize = output.dims[0];
         const embedDim = output.dims[1];
 
         for (let j = 0; j < batch.length; j++) {
@@ -150,7 +156,6 @@ KIẾN THỨC NỀN TẢNG TRÍCH XUẤT ĐƯỢC:
 ${contextText}
 `;
 
-      // Chuẩn bị Messages format của Ollama
       const messages = [
         { role: 'system', content: systemPrompt },
         ...history.map(msg => ({
@@ -167,23 +172,60 @@ ${contextText}
       res.setHeader('Content-Type', 'text/plain; charset=utf-8');
       res.setHeader('Transfer-Encoding', 'chunked');
 
-      // 3. Gọi Ollama API (Stream)
-      const stream = await this.ollama.chat({
-        model: 'llama3', // Chuyển sang llama3 hoặc qwen2 vì phi3 quá yếu Tiếng Việt
-        messages,
-        stream: true,
-        options: {
-          temperature: 0.3, // Giảm temperature để tránh hallucination (nói nhảm)
-          top_p: 0.9,
-          num_predict: 500, // Giới hạn token trả về để tránh vòng lặp vô tận
-        }
+      // 3. Gọi Groq Cloud API (Stream via Llama 3.1 8B Instant)
+      const apiKey = process.env.GROQ_API_KEY;
+      if (!apiKey) {
+        throw new Error('Chưa cấu hình GROQ_API_KEY trong file .env');
+      }
+
+      const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'llama-3.1-8b-instant',
+          messages,
+          stream: true,
+          temperature: 0.3,
+          max_tokens: 500,
+        }),
       });
 
-      // Bơm từng chữ về cho Client theo chuẩn Vercel AI SDK (Data Stream Protocol)
-      for await (const chunk of stream) {
-        if (chunk.message?.content) {
-          const textChunk = JSON.stringify(chunk.message.content);
-          res.write(`0:${textChunk}\n`);
+      if (!groqResponse.ok || !groqResponse.body) {
+        const errText = await groqResponse.text();
+        throw new Error(`Groq API Error (${groqResponse.status}): ${errText}`);
+      }
+
+      const reader = (groqResponse.body as any).getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed || trimmed.startsWith(':')) continue;
+          if (trimmed === 'data: [DONE]') break;
+          if (trimmed.startsWith('data: ')) {
+            try {
+              const json = JSON.parse(trimmed.slice(6));
+              const content = json.choices?.[0]?.delta?.content;
+              if (content) {
+                const textChunk = JSON.stringify(content);
+                res.write(`0:${textChunk}\n`);
+              }
+            } catch {
+              // ignore parse errors for partial lines
+            }
+          }
         }
       }
       res.end();
@@ -193,7 +235,7 @@ ${contextText}
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Transfer-Encoding', 'chunked');
       }
-      const errorMsg = JSON.stringify('\n\n*(Lỗi: Không thể kết nối đến Ollama. Vui lòng đảm bảo bạn đã chạy `ollama run llama3`)*');
+      const errorMsg = JSON.stringify(`\n\n*(Lỗi kết nối Groq AI: ${error instanceof Error ? error.message : 'Unknown error'})*`);
       res.write(`0:${errorMsg}\n`);
       res.end();
     }
