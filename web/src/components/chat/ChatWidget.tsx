@@ -6,7 +6,8 @@ import { AlertTriangle, Bot, X, MessageSquare, Send, Loader2, User, Trash2 } fro
 import Markdown from "markdown-to-jsx";
 import clsx from "clsx";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const API_URL = rawApiUrl.replace(/\/$/, "");
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);

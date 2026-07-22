@@ -12,7 +12,8 @@ import { PseudocodePanel } from "./PseudocodePanel";
 import { ActionLog } from "./ActionLog";
 import { Legend } from "./Legend";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const API_URL = rawApiUrl.replace(/\/$/, "");
 
 export function VisualizerShell({ slug }: { slug: string }) {
   const mod = getVisualizer(slug);
